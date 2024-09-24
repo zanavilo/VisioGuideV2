@@ -1,7 +1,3 @@
-visioguide
-3.5
-file:///C:/Users/Zan%20Avilo/AndroidStudioProjects/VisioGuide/
-file:///C:/Users/Zan%20Avilo/AndroidStudioProjects/VisioGuide/lib/
 async
 2.18
 file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/async-2.11.0/
@@ -98,6 +94,10 @@ vm_service
 3.3
 file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/vm_service-14.2.5/
 file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/vm_service-14.2.5/lib/
+visioguide
+3.5
+file:///C:/Users/Zan%20Avilo/Documents/VisioGuideV2/
+file:///C:/Users/Zan%20Avilo/Documents/VisioGuideV2/lib/
 sky_engine
 3.2
 file:///C:/flutter/flutter_windows_3.24.3-stable/flutter/bin/cache/pkg/sky_engine/
