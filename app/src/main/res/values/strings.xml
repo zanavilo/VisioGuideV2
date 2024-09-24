@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Visio Guide</string>
+    <string name="instructions">INSTRUCTIONS</string>
+    <string name="say">Say READ to read the text using camera.\n\n Say OBJECT DETECTION to detect the object.\n\n Say CALCULATOR to perform equations.\n\n Say WEATHER to get weather details.\n\n Say NAVIGATION to navigate to the destination.\n\n Say LOCATION to get location details.\n\n Say BATTERY to get battery percentage.\n\n Say TIME AND DATE for time and date.\n\n Say MESSAGE READER to read the messages.\n\n Say BANK TRANSFER to transfer the amount.\n\n Say PHONE TRANSFER to transfer the amount.\n\n Say REMINDER to create reminders.\n\n Say QR to start qr product identitfication.\n\n Say MUSIC to start music.\n\n Sat CALL for calling using phone number.\n\n Say BACK to return to home screen.\n\n Say EXIT to close the application.</string>
+</resources>

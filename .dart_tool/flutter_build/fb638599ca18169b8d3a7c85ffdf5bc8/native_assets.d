@@ -1,0 +1,1 @@
+ C:\\Users\\Zan\ Avilo\\AndroidStudioProjects\\VisioGuide\\.dart_tool\\flutter_build\\fb638599ca18169b8d3a7c85ffdf5bc8\\native_assets.yaml: 
