@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:visioguide/Pages/MainPage.dart';
-
+//tang ina ni moce
 void main() {
   runApp(const MyApp());
 }
