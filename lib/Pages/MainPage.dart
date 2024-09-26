@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart' show AppBar, AssetImage, BoxDecoration, BoxFit, BuildContext, Card, Colors, Container, DecorationImage, EdgeInsets, FontWeight, Icon, IconData, Icons, ListTile, ListView, MaterialPageRoute, Navigator, Scaffold, Stack, StatelessWidget, Text, TextStyle, Widget;
+import 'package:flutter/material.dart'; // Necessary for UI components
+import 'package:flutter/services.dart'; // Import for HapticFeedback
 import 'ReadPage.dart';
 import 'ObjectDetectionPage.dart';
 import 'CalculatorPage.dart';
@@ -7,7 +8,7 @@ import 'NavigationPage.dart';
 import 'BatteryPage.dart';
 import 'TimeAndDatePage.dart';
 
-class MainPage extends StatelessWidget { // Extend StatelessWidget directly
+class MainPage extends StatelessWidget {
   final List<Option> options = [
     Option('READ', 'Read the text using camera', Icons.book),
     Option('OBJECT DETECTION', 'Detect the object', Icons.search),
@@ -24,7 +25,7 @@ class MainPage extends StatelessWidget { // Extend StatelessWidget directly
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Visio-Guide', style: TextStyle(color: Colors.white)),
+        title: const Text('Replace with app name w/ design', style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.blue,
       ),
       body: Stack(
@@ -89,6 +90,15 @@ class MainPage extends StatelessWidget { // Extend StatelessWidget directly
                         MaterialPageRoute(builder: (context) => TimeAndDatePage()),
                       );
                     }
+                  },
+                  onLongPress: () {
+                    // Haptic feedback when holding the button
+                    HapticFeedback.mediumImpact(); // Provide medium haptic feedback
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Haptic feedback activated for ${options[index].title}'),
+                      ),
+                    );
                   },
                 ),
               );

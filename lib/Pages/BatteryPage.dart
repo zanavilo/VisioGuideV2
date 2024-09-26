@@ -9,7 +9,7 @@ class BatteryPage extends StatelessWidget {
       ),
       body: Center(
         child: Text(
-          'This is the page to display battery percentage.',
+          'This is the page for checking battery percentage.',
           style: TextStyle(fontSize: 20),
         ),
       ),

@@ -9,7 +9,7 @@ class NavigationPage extends StatelessWidget {
       ),
       body: Center(
         child: Text(
-          'This is the page for navigation to a destination.',
+          'This is the page for navigation to destinations.',
           style: TextStyle(fontSize: 20),
         ),
       ),

@@ -9,7 +9,7 @@ class TimeAndDatePage extends StatelessWidget {
       ),
       body: Center(
         child: Text(
-          'This is the page to display the current time and date.',
+          'This is the page for checking time and date.',
           style: TextStyle(fontSize: 20),
         ),
       ),

@@ -9,7 +9,7 @@ class ObjectDetectionPage extends StatelessWidget {
       ),
       body: Center(
         child: Text(
-          'This is the page for object detection.',
+          'This is the page for object detection functionality.',
           style: TextStyle(fontSize: 20),
         ),
       ),

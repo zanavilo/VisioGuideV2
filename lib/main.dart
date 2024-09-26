@@ -2,7 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:visioguide/Pages/MainPage.dart';
 import 'package:visioguide/Pages/PrivacyAndTerms.dart'; // Ensure this import is correct
-import 'package:visioguide/Pages/AllowAccess.dart'; // Ensure this import is correct
+import 'package:visioguide/Pages/AllowAccess.dart';
+import 'package:visioguide/Pages/InfoSlider.dart'; // Ensure this import is correct
 
 void main() {
   runApp(const MyApp());
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => SplashScreen(), // Splash screen route
         '/PrivacyAndTerms': (context) => PrivacyAndTerms(), // Privacy and Terms screen route
+        '/InfoSlider': (context) => InfoSlider(), //Information pages
         '/MainPage': (context) => MainPage(), // Main page route
       },
     );

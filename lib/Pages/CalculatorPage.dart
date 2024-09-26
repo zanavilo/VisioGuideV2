@@ -9,7 +9,7 @@ class CalculatorPage extends StatelessWidget {
       ),
       body: Center(
         child: Text(
-          'This is the page for mathematical calculations.',
+          'This is the page for performing mathematical calculations.',
           style: TextStyle(fontSize: 20),
         ),
       ),

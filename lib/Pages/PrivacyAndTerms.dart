@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:visioguide/Pages/MainPage.dart';
+import 'package:visioguide/Pages/InfoSlider.dart';
 import 'AllowAccess.dart';
 
 class PrivacyAndTerms extends StatelessWidget {
-  const PrivacyAndTerms({Key? key}) : super(key: key);
+  const PrivacyAndTerms({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +55,7 @@ class PrivacyAndTerms extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () {
                   Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => MainPage()),
+                    MaterialPageRoute(builder: (context) => InfoSlider()),
                   );
                 },
                 style: ElevatedButton.styleFrom(

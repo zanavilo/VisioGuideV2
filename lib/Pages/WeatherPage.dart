@@ -9,7 +9,7 @@ class WeatherPage extends StatelessWidget {
       ),
       body: Center(
         child: Text(
-          'This is the page to check the weather details.',
+          'This is the page where weather details will be displayed.',
           style: TextStyle(fontSize: 20),
         ),
       ),
