@@ -32,6 +32,7 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.8
   flutter_native_splash: ^2.0.5 # added this then flutter pub get in terminal
+  permission_handler: ^10.2.0 # Replace 'latest_version' with the actual latest version
 
 # code for splash screen
 flutter_native_splash:
@@ -71,6 +72,7 @@ flutter:
   assets:
     - assets/wallpaper.jpg
     - assets/logo.png
+    - assets/bbg.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
