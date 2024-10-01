@@ -25,7 +25,8 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => SplashScreen(), // Splash screen route
         '/PrivacyAndTerms': (context) => PrivacyAndTerms(), // Privacy and Terms screen route
-        '/InfoSlider': (context) => InfoSlider(), //Information pages
+        '/AllowAccess': (context) => AllowAccess(), // Allow access page
+        '/InfoSlider': (context) => InfoSlider(), // Information pages
         '/MainPage': (context) => MainPage(), // Main page route
       },
     );

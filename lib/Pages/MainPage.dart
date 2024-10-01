@@ -7,6 +7,7 @@ import 'WeatherPage.dart';
 import 'NavigationPage.dart';
 import 'BatteryPage.dart';
 import 'TimeAndDatePage.dart';
+import 'CameraScreen.dart';
 
 class MainPage extends StatelessWidget {
   final List<Option> options = [
@@ -61,7 +62,7 @@ class MainPage extends StatelessWidget {
                     if (options[index].title == 'READ') {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => ReadPage()),
+                        MaterialPageRoute(builder: (context) => CameraScreen()),
                       );
                     } else if (options[index].title == 'OBJECT DETECTION') {
                       Navigator.push(

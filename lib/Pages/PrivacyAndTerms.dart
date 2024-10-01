@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:visioguide/Pages/AllowAccess.dart';
 import 'package:visioguide/Pages/InfoSlider.dart';
 
 class PrivacyAndTerms extends StatefulWidget {
@@ -102,7 +103,7 @@ class _PrivacyAndTermsState extends State<PrivacyAndTerms> {
                     onPressed: isChecked
                         ? () {
                       Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context) => InfoSlider()),
+                        MaterialPageRoute(builder: (context) => AllowAccess()),
                       );
                     }
                         : null, // Disable button if checkbox is not checked

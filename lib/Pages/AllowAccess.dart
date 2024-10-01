@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'MainPage.dart';
+import 'package:visioguide/Pages/InfoSlider.dart';
+import 'MainPage.dart'; // Replace this with the actual path of your MainPage
 import 'package:permission_handler/permission_handler.dart';
 
 class AllowAccess extends StatefulWidget {
@@ -11,41 +12,43 @@ class AllowAccess extends StatefulWidget {
 
 class _AllowAccessState extends State<AllowAccess> {
   bool _isRequestingPermissions = false;
-  // ... (rest of your permission handling code)
 
+  // Method to request permissions
   Future<void> _requestPermissions() async {
+    // Set loading state to true
     setState(() {
       _isRequestingPermissions = true;
     });
 
-    // Request both fine and coarse location permissions, along with others
+    // Request permissions for microphone, camera, and location
     Map<Permission, PermissionStatus> statuses = await [
       Permission.microphone,
       Permission.camera,
-      Permission.location, // Fine location
-      Permission.locationWhenInUse, // Coarse location
+      Permission.location,           // Fine location
+      Permission.locationWhenInUse,  // Coarse location
     ].request();
 
     // Check if all permissions are granted
     bool allGranted = statuses.values.every((status) => status.isGranted);
 
+    // Set loading state back to false
     setState(() {
       _isRequestingPermissions = false;
     });
 
+    // If all permissions are granted, navigate to InfoSlider page
     if (allGranted) {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => MainPage()),
+        MaterialPageRoute(builder: (context) => InfoSlider()),
       );
     } else {
+      // Show a SnackBar if some permissions were denied
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Some permissions were denied.')),
       );
     }
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -54,48 +57,63 @@ class _AllowAccessState extends State<AllowAccess> {
         title: const Text('Allow access', style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.blue, // Set AppBar background to blue
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Container( // Wrap the icon in a Container for styling
-              width: 150, // Adjust size as needed
-              height: 150,
-              decoration: BoxDecoration(
-                color: Colors.blue, // Blue background for the icon
-                shape: BoxShape.circle,
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/wpg.png'), // Background image
+            fit: BoxFit.cover, // Cover the whole screen
+          ),
+        ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              // Camera icon with blue background
+              Container(
+                width: 150, // Adjust size as needed
+                height: 150,
+                decoration: BoxDecoration(
+                  color: Colors.blue, // Blue background for the icon
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(
+                  Icons.camera,
+                  size: 80.0, // Adjust icon size as needed
+                  color: Colors.white, // Set icon color to white
+                ),
               ),
-              child: const Icon(
-                Icons.camera,
-                size: 80.0, // Adjust icon size as needed
-                color: Colors.white, // Set icon color to white
+              const SizedBox(height: 30.0),
+              const Text(
+                'Microphone and Camera',
+                style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold, color: Colors.white), // Change text color to white
               ),
-            ),
-            const SizedBox(height: 30.0),
-            const Text(
-              'Microphone and Camera',
-              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 10.0),
-            const Padding( // Add padding for better visual spacing
-              padding: EdgeInsets.symmetric(horizontal: 20.0),
-              child: Text(
-                'To make video calls, give access to your microphone and camera.',
-                textAlign: TextAlign.center,
+              const SizedBox(height: 10.0),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.0),
+                child: Text(
+                  'To make video calls, give access to your microphone and camera.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 16.0, color: Colors.white), // Change text color to white
+                ),
               ),
-            ),
-            const SizedBox(height: 40.0), // Increase spacing
-            ElevatedButton(
-              onPressed: _isRequestingPermissions ? null : () => _requestPermissions(),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue,
-                minimumSize: const Size.fromHeight(50),
+              const SizedBox(height: 40.0), // Increase spacing
+
+              // Shortened button using SizedBox
+              SizedBox(
+                width: 200,  // Set the desired width for the button
+                child: ElevatedButton(
+                  onPressed: _isRequestingPermissions ? null : () => _requestPermissions(),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                    padding: const EdgeInsets.symmetric(vertical: 15.0), // Adjust button height if needed
+                  ),
+                  child: _isRequestingPermissions
+                      ? const CircularProgressIndicator(color: Colors.white)
+                      : const Text('Give access', style: TextStyle(color: Colors.white)),
+                ),
               ),
-              child: _isRequestingPermissions
-                  ? const CircularProgressIndicator(color: Colors.white) // White loading indicator
-                  : const Text('Give access', style: TextStyle(color: Colors.white)),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

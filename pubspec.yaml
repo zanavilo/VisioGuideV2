@@ -33,6 +33,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   flutter_native_splash: ^2.0.5 # added this then flutter pub get in terminal
   permission_handler: ^10.2.0 # Replace 'latest_version' with the actual latest version
+  camera: ^0.10.0 # For camera
 
 # code for splash screen
 flutter_native_splash:
