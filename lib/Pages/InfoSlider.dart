@@ -13,9 +13,21 @@ class _InfoSliderState extends State<InfoSlider> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('App Information')),
+      appBar: AppBar(
+        title: const Text('App Information', style: TextStyle(color: Colors.white)),
+        backgroundColor: Colors.blue,
+      ),
       body: Stack(
-        children: [
+        children: <Widget>[
+          // Background image
+          Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/.png"), // Ensure this image is in your assets
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
           PageView(
             controller: _controller,
             onPageChanged: (int page) {
@@ -26,26 +38,46 @@ class _InfoSliderState extends State<InfoSlider> {
             children: [
               // Define each page with content
               InfoPage(
-                imagePath: 'assets/info1.png',
+                imagePath: 'assets/eye.png',
                 title: 'Welcome to Visio-Guide',
-                description: 'Visio-Guide helps visually impaired users navigate their surroundings with ease.',
+                description: 'Discover Visio-Guide, your essential companion for navigating the world with ease. This app is specifically designed to empower visually impaired individuals by providing useful tools for mobility and awareness.',
               ),
               InfoPage(
-                imagePath: 'assets/info2.png',
-                title: 'Read Text',
-                description: 'Use the camera to read text in your environment quickly and efficiently.',
+                imagePath: 'assets/features.png',
+                title: 'Innovative Technology',
+                description: 'Leveraging cutting-edge technology, Visio-Guide incorporates features such as real-time text reading and advanced object detection, transforming how users interact with their environment.',
               ),
               InfoPage(
                 imagePath: 'assets/info3.png',
-                title: 'Object Detection',
-                description: 'Detect objects around you using cutting-edge technology.',
+                title: 'Your Safety, Our Priority',
+                description: 'With features designed to keep you informed and safe, Visio-Guide is dedicated to providing reliable assistance, ensuring you feel secure in every step you take.',
               ),
               InfoPage(
                 imagePath: 'assets/info4.png',
-                title: 'Stay Informed',
-                description: 'Get weather updates, battery status, and more to stay informed wherever you are.',
+                title: 'Get Started!',
+                description: 'Start using Visio-Guide by enabling essential features. Simply grant permissions for camera and location to access all the app’s functionalities, making navigation effortless and your surroundings more accessible.',
               ),
             ],
+          ),
+          // Page indicator dots
+          Positioned(
+            bottom: 80.0, // Position above the button
+            left: 0,
+            right: 0,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(4, (index) {
+                return Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 4.0),
+                  height: 8.0,
+                  width: 8.0,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: _currentPage == index ? Colors.blue : Colors.grey,
+                  ),
+                );
+              }),
+            ),
           ),
           // Conditionally show the 'Go to Main Page' button on the last page
           if (_currentPage == 3) // Index 3 is the last page (0-based index)
@@ -54,15 +86,30 @@ class _InfoSliderState extends State<InfoSlider> {
               left: 0,
               right: 0,
               child: Center(
-                child: ElevatedButton(
-                  onPressed: () {
-                    // Use Navigator.pushReplacement to navigate to MainPage
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => MainPage()),
-                    );
-                  },
-                  child: const Text('Go to Main Page'),
+                child: SizedBox(
+                  width: double.infinity, // Make the button width dynamic (like in PrivacyAndTerms.dart)
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 40.0), // Adjust padding to make the button size similar
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue,    // Button background color
+                        foregroundColor: Colors.white, // Button text color
+                        padding: const EdgeInsets.symmetric(vertical: 15.0), // Similar button height
+                        textStyle: const TextStyle(fontSize: 18), // Font size for text inside button
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10), // Rounded corners
+                        ),
+                      ),
+                      onPressed: () {
+                        // Use Navigator.pushReplacement to navigate to MainPage
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (context) => MainPage()),
+                        );
+                      },
+                      child: const Text('Go to Main Page'), // Button text
+                    ),
+                  ),
                 ),
               ),
             ),

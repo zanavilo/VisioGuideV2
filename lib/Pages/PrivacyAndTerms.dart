@@ -3,8 +3,15 @@ import 'package:visioguide/Pages/MainPage.dart';
 import 'package:visioguide/Pages/InfoSlider.dart';
 import 'AllowAccess.dart';
 
-class PrivacyAndTerms extends StatelessWidget {
+class PrivacyAndTerms extends StatefulWidget {
   const PrivacyAndTerms({super.key});
+
+  @override
+  _PrivacyAndTermsState createState() => _PrivacyAndTermsState();
+}
+
+class _PrivacyAndTermsState extends State<PrivacyAndTerms> {
+  bool isChecked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +27,7 @@ class PrivacyAndTerms extends StatelessWidget {
           children: [
             const Text(
               'To use Visio-Guide, you agree to the following:',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
             const SizedBox(height: 16),
             _buildTermRow(Icons.accessibility_new, 'I will not use Visio-Guide as a mobility device.'),
@@ -30,16 +37,20 @@ class PrivacyAndTerms extends StatelessWidget {
             _buildTermRow(Icons.lock, 'The data, videos, images, and personal information I submit to Visio-Guide may be stored and processed.'),
             const SizedBox(height: 32),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                // TODO: Navigate to Terms of Service page
+              },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue, // Match the blue color
-                minimumSize: const Size.fromHeight(50), // Match button height
+                backgroundColor: Colors.blue,
+                minimumSize: const Size.fromHeight(50),
               ),
               child: const Text('Terms of Service', style: TextStyle(color: Colors.white)),
             ),
             const SizedBox(height: 16),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                // TODO: Navigate to Privacy Policy page
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue,
                 minimumSize: const Size.fromHeight(50),
@@ -51,15 +62,31 @@ class PrivacyAndTerms extends StatelessWidget {
               'By clicking "I agree", I agree to everything above and accept the Terms of Service and Privacy Policy.',
             ),
             const SizedBox(height: 16),
+            Row(
+              children: [
+                Checkbox(
+                  value: isChecked,
+                  onChanged: (bool? value) {
+                    setState(() {
+                      isChecked = value ?? false;
+                    });
+                  },
+                ),
+                const Text('I agree to the terms'),
+              ],
+            ),
+            const SizedBox(height: 16),
             Center(
               child: ElevatedButton(
-                onPressed: () {
+                onPressed: isChecked
+                    ? () {
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(builder: (context) => InfoSlider()),
                   );
-                },
+                }
+                    : null, // Disable button if checkbox is not checked
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
+                  backgroundColor: isChecked ? Colors.blue : Colors.grey, // Button color change when disabled
                   minimumSize: const Size.fromHeight(50),
                 ),
                 child: const Text('I agree', style: TextStyle(color: Colors.white)),
@@ -76,10 +103,13 @@ class PrivacyAndTerms extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(icon),
+        Icon(icon, color: Colors.blue),
         const SizedBox(width: 8),
         Expanded(
-          child: Text(text),
+          child: Text(
+            text,
+            style: const TextStyle(fontSize: 16),
+          ),
         ),
       ],
     );

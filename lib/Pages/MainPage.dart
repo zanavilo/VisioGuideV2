@@ -10,22 +10,22 @@ import 'TimeAndDatePage.dart';
 
 class MainPage extends StatelessWidget {
   final List<Option> options = [
-    Option('READ', 'Read the text using camera', Icons.book),
-    Option('OBJECT DETECTION', 'Detect the object', Icons.search),
-    Option('CALCULATOR', 'Perform mathematical calculations', Icons.calculate),
-    Option('WEATHER', 'Get weather details', Icons.wb_sunny),
-    Option('NAVIGATION', 'Navigate to the destination', Icons.navigation),
-    Option('BATTERY', 'Get battery percentage', Icons.battery_std),
-    Option('TIME AND DATE', 'Get time and date', Icons.access_time),
-    Option('BACK', 'Return to Home screen', Icons.arrow_back),
-    Option('EXIT', 'Close the application', Icons.exit_to_app),
+    Option('READ', 'Read the text using camera', 'assets/read.png'),
+    Option('OBJECT DETECTION', 'Detect the object', 'assets/obj.png'),
+    Option('CALCULATOR', 'Perform mathematical calculations', 'assets/cal.png'),
+    Option('WEATHER', 'Get weather details', 'assets/weather.png'),
+    Option('NAVIGATION', 'Navigate to the destination', 'assets/nav.png'),
+    Option('BATTERY', 'Get battery percentage', 'assets/batt.png'),
+    Option('TIME AND DATE', 'Get time and date', 'assets/tnd.png'),
+    Option('BACK', 'Return to Home screen', 'assets/back.png'),
+    Option('EXIT', 'Close the application', 'assets/exit.png'),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Replace with app name w/ design', style: TextStyle(color: Colors.white)),
+        title: const Text('Welcome to Visio-Guide', style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.blue,
       ),
       body: Stack(
@@ -46,7 +46,11 @@ class MainPage extends StatelessWidget {
               return Card(
                 margin: const EdgeInsets.all(10),
                 child: ListTile(
-                  leading: Icon(options[index].icon, size: 40),
+                  leading: Image.asset(
+                    options[index].iconPath, // Load custom icon from assets
+                    width: 40, // Adjust the size of the custom icon
+                    height: 40,
+                  ),
                   title: Text(
                     'Say ${options[index].title}',
                     style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
@@ -113,7 +117,7 @@ class MainPage extends StatelessWidget {
 class Option {
   final String title;
   final String description;
-  final IconData icon;
+  final String iconPath;
 
-  Option(this.title, this.description, this.icon);
+  Option(this.title, this.description, this.iconPath);
 }
