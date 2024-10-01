@@ -34,7 +34,7 @@ class MainPage extends StatelessWidget {
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/bbg.png"), // Ensure this image is in your assets
+                image: AssetImage("assets/wpg.png"), // Ensure this image is in your assets
                 fit: BoxFit.cover,
               ),
             ),

@@ -23,7 +23,7 @@ class _InfoSliderState extends State<InfoSlider> {
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/bbg.png"), // Ensure this image is in your assets
+                image: AssetImage("assets/wpg.png"), // Ensure this image is in your assets
                 fit: BoxFit.cover,
               ),
             ),
@@ -55,7 +55,7 @@ class _InfoSliderState extends State<InfoSlider> {
               InfoPage(
                 imagePath: 'assets/greet.png',
                 title: 'Get Started!',
-                description: 'Start using Visio-Guide by enabling essential features. Simply grant permissions for camera and location to access all the app’s functionalities, making navigation effortless and your surroundings more accessible.',
+                description: 'Start using Visio-Guide by going to the Main Page and simply saying "SAY" then the feature you want to use.',
               ),
             ],
           ),
@@ -139,17 +139,13 @@ class InfoPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           // Display the image for each slide
-          Image.asset(
-            imagePath,
-            height: 200, // Adjust height as necessary
+          Image.asset(imagePath, height: 200, // Adjust height as necessary
           ),
           const SizedBox(height: 20),
           // Display the title for each slide
           Text(
             title,
-            style: const TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
+            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white
             ),
             textAlign: TextAlign.center,
           ),
@@ -157,7 +153,8 @@ class InfoPage extends StatelessWidget {
           // Display the description for each slide
           Text(
             description,
-            style: const TextStyle(fontSize: 16),
+            style: const TextStyle(fontSize: 16, color: Colors.white
+            ),
             textAlign: TextAlign.center,
           ),
         ],
