@@ -84,6 +84,9 @@ flutter:
     - assets/weather.png
     - assets/eye.png
     - assets/features.png
+    - assets/safety.png
+    - assets/greet.png
+    - assets/wppr.jpg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

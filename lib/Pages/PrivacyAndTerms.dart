@@ -62,18 +62,22 @@ class _PrivacyAndTermsState extends State<PrivacyAndTerms> {
               'By clicking "I agree", I agree to everything above and accept the Terms of Service and Privacy Policy.',
             ),
             const SizedBox(height: 16),
-            Row(
-              children: [
-                Checkbox(
-                  value: isChecked,
-                  onChanged: (bool? value) {
-                    setState(() {
-                      isChecked = value ?? false;
-                    });
-                  },
-                ),
-                const Text('I agree to the terms'),
-              ],
+            // Centering the checkbox and text
+            Center(
+              child: Row(
+                mainAxisSize: MainAxisSize.min, // Adjust size to fit contents
+                children: [
+                  Checkbox(
+                    value: isChecked,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        isChecked = value ?? false;
+                      });
+                    },
+                  ),
+                  const Text('I agree to the terms'),
+                ],
+              ),
             ),
             const SizedBox(height: 16),
             Center(

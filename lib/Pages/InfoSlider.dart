@@ -14,7 +14,7 @@ class _InfoSliderState extends State<InfoSlider> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('App Information', style: TextStyle(color: Colors.white)),
+        title: const Text('Application Information', style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.blue,
       ),
       body: Stack(
@@ -23,7 +23,7 @@ class _InfoSliderState extends State<InfoSlider> {
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/.png"), // Ensure this image is in your assets
+                image: AssetImage("assets/bbg.png"), // Ensure this image is in your assets
                 fit: BoxFit.cover,
               ),
             ),
@@ -48,12 +48,12 @@ class _InfoSliderState extends State<InfoSlider> {
                 description: 'Leveraging cutting-edge technology, Visio-Guide incorporates features such as real-time text reading and advanced object detection, transforming how users interact with their environment.',
               ),
               InfoPage(
-                imagePath: 'assets/info3.png',
+                imagePath: 'assets/safety.png',
                 title: 'Your Safety, Our Priority',
                 description: 'With features designed to keep you informed and safe, Visio-Guide is dedicated to providing reliable assistance, ensuring you feel secure in every step you take.',
               ),
               InfoPage(
-                imagePath: 'assets/info4.png',
+                imagePath: 'assets/greet.png',
                 title: 'Get Started!',
                 description: 'Start using Visio-Guide by enabling essential features. Simply grant permissions for camera and location to access all the app’s functionalities, making navigation effortless and your surroundings more accessible.',
               ),
