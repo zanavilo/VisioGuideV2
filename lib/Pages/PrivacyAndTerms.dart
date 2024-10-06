@@ -10,8 +10,6 @@ class PrivacyAndTerms extends StatefulWidget {
 }
 
 class _PrivacyAndTermsState extends State<PrivacyAndTerms> {
-  bool isChecked = false;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,38 +75,16 @@ class _PrivacyAndTermsState extends State<PrivacyAndTerms> {
                   'By clicking "I agree", I agree to everything above and accept the Terms of Service and Privacy Policy.',
                   style: TextStyle(color: Colors.white), // Ensure readability
                 ),
-                const SizedBox(height: 16),
-                Center(
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Checkbox(
-                        value: isChecked,
-                        onChanged: (bool? value) {
-                          setState(() {
-                            isChecked = value ?? false;
-                          });
-                        },
-                      ),
-                      const Text(
-                        'I agree to the terms',
-                        style: TextStyle(color: Colors.white), // Set the text color to white
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 24), // Increased spacing
                 Center(
                   child: ElevatedButton(
-                    onPressed: isChecked
-                        ? () {
+                    onPressed: () {
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(builder: (context) => AllowAccess()),
                       );
-                    }
-                        : null, // Disable button if checkbox is not checked
+                    },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: isChecked ? Colors.blue : Colors.grey, // Button color change when disabled
+                      backgroundColor: Colors.blue,
                       minimumSize: const Size.fromHeight(50),
                     ),
                     child: const Text('I agree', style: TextStyle(color: Colors.white)),

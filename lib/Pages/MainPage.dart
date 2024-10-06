@@ -67,7 +67,7 @@ class MainPage extends StatelessWidget {
                     } else if (options[index].title == 'OBJECT DETECTION') {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => ObjectDetectionPage()),
+                        MaterialPageRoute(builder: (context) => CameraScreen()),
                       );
                     } else if (options[index].title == 'CALCULATOR') {
                       Navigator.push(

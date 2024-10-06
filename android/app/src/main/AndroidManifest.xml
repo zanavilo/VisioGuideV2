@@ -3,6 +3,9 @@
     <!-- Camera permission -->
     <uses-permission android:name="android.permission.CAMERA" />
 
+    <!-- Camera feature optional -->
+    <uses-feature android:name="android.hardware.camera" android:required="false"/>
+
     <!-- Microphone permission -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 

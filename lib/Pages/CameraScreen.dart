@@ -8,7 +8,7 @@ class CameraScreen extends StatefulWidget {
 
 class _CameraScreenState extends State<CameraScreen> {
   late CameraController _controller; // Declare the camera controller
-  late Future<void> _initializeControllerFuture; // Future for controller initialization
+  Future<void>? _initializeControllerFuture; // Future for controller initialization
 
   @override
   void initState() {
@@ -18,21 +18,27 @@ class _CameraScreenState extends State<CameraScreen> {
 
   // Method to initialize the camera
   Future<void> _initializeCamera() async {
-    // Get a list of the available cameras
-    final cameras = await availableCameras();
+    try {
+      // Get a list of the available cameras
+      final cameras = await availableCameras();
 
-    // Check if any cameras are available
-    if (cameras.isNotEmpty) {
-      // Use the first camera (usually the back camera)
-      _controller = CameraController(
-        cameras.first, // Use the first camera in the list
-        ResolutionPreset.high, // Set the resolution
-      );
+      // Check if any cameras are available
+      if (cameras.isNotEmpty) {
+        // Use the first camera (usually the back camera)
+        _controller = CameraController(
+          cameras.first, // Use the first camera in the list
+          ResolutionPreset.high, // Set the resolution
+        );
 
-      // Initialize the controller and set the future
-      _initializeControllerFuture = _controller.initialize();
-    } else {
-      throw Exception("No cameras available");
+        // Initialize the controller and set the future
+        _initializeControllerFuture = _controller.initialize();
+        setState(() {}); // Update the state to reflect that initialization has started
+      } else {
+        throw Exception("No cameras available");
+      }
+    } catch (e) {
+      // Handle errors in camera initialization
+      print("Error initializing camera: $e");
     }
   }
 
@@ -48,7 +54,9 @@ class _CameraScreenState extends State<CameraScreen> {
       appBar: AppBar(
         title: const Text('Camera'),
       ),
-      body: FutureBuilder<void>(
+      body: _initializeControllerFuture == null
+          ? Center(child: Text('Initializing camera...')) // Show loading text initially
+          : FutureBuilder<void>(
         future: _initializeControllerFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
