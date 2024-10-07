@@ -89,7 +89,7 @@ class MainPage extends StatelessWidget {
                     } else if (options[index].title == 'BATTERY') {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => CameraScreen()),
+                        MaterialPageRoute(builder: (context) => BatteryStatus()),
                       );
                     } else if (options[index].title == 'TIME AND DATE') {
                       Navigator.push(
