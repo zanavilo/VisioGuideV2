@@ -36,6 +36,9 @@ dependencies:
   camera: ^0.10.0 # For camera
   vibration: ^1.7.4 # For vibration
   battery_plus: ^2.0.1 # For battery information
+  http: ^0.13.5  # For making HTTP requests
+  geolocator: ^9.0.2  # For getting user's location (if you want location-based weather)
+  intl: ^0.18.0  # Check for the latest version on pub.dev
 
 # code for splash screen
 flutter_native_splash:
