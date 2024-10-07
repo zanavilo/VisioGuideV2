@@ -58,6 +58,8 @@ class MainPage extends StatelessWidget {
                   ),
                   subtitle: Text(options[index].description),
                   onTap: () {
+                    // Vibration feedback on tap
+                    HapticFeedback.lightImpact(); // Light vibration
                     // Navigate to the respective feature page
                     if (options[index].title == 'READ') {
                       Navigator.push(
@@ -97,8 +99,8 @@ class MainPage extends StatelessWidget {
                     }
                   },
                   onLongPress: () {
-                    // Haptic feedback when holding the button
-                    HapticFeedback.mediumImpact(); // Provide medium haptic feedback
+                    // Vibration feedback on long press
+                    HapticFeedback.vibrate(); // Medium vibration on long press
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text('Haptic feedback activated for ${options[index].title}'),

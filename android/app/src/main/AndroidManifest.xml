@@ -2,24 +2,20 @@
 
     <!-- Camera permission -->
     <uses-permission android:name="android.permission.CAMERA" />
-
     <!-- Camera feature optional -->
     <uses-feature android:name="android.hardware.camera" android:required="false"/>
-
     <!-- Microphone permission -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-
     <!-- Fine location (GPS) permission -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
     <!-- Coarse location permission -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
     <!-- Optionally, if you plan to use Internet-based features -->
     <uses-permission android:name="android.permission.INTERNET" />
-
     <!-- Optional, Background location access (for Android 10+) -->
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <!-- Optional, Vibrate permission -->
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:label="visioguide"
