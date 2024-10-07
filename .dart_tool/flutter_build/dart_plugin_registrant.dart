@@ -10,7 +10,6 @@ import 'package:camera_android/camera_android.dart';
 import 'package:geolocator_android/geolocator_android.dart';
 import 'package:camera_avfoundation/camera_avfoundation.dart';
 import 'package:geolocator_apple/geolocator_apple.dart';
-import 'package:battery_plus_linux/battery_plus_linux.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:geolocator_apple/geolocator_apple.dart';
 import 'package:device_info_plus/device_info_plus.dart';
@@ -59,15 +58,6 @@ class _PluginRegistrant {
       }
 
     } else if (Platform.isLinux) {
-      try {
-        BatteryPlusLinux.registerWith();
-      } catch (err) {
-        print(
-          '`battery_plus_linux` threw an error: $err. '
-          'The app may not function as expected until you remove this plugin from pubspec.yaml'
-        );
-      }
-
       try {
         DeviceInfoPlusLinuxPlugin.registerWith();
       } catch (err) {

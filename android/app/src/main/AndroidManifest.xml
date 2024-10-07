@@ -12,10 +12,11 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <!-- Optionally, if you plan to use Internet-based features -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <!-- Optional, Background location access (for Android 10+) -->
+    <!-- Background location access (for Android 10+) -->
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
-    <!-- Optional, Vibrate permission -->
+    <!-- Vibrate permission -->
     <uses-permission android:name="android.permission.VIBRATE" />
+
 
     <application
         android:label="visioguide"
