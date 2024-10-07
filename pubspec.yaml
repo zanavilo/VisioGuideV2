@@ -35,6 +35,7 @@ dependencies:
   permission_handler: ^10.2.0 # Replace 'latest_version' with the actual latest version
   camera: ^0.10.0 # For camera
   vibration: ^1.7.4 # For vibration
+  battery_plus: ^2.0.1 # For battery information
 
 # code for splash screen
 flutter_native_splash:

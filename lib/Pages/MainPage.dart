@@ -5,7 +5,7 @@ import 'ObjectDetectionPage.dart';
 import 'CalculatorPage.dart';
 import 'WeatherPage.dart';
 import 'NavigationPage.dart';
-import 'BatteryPage.dart';
+import 'BatteryStatus.dart';
 import 'TimeAndDatePage.dart';
 import 'CameraScreen.dart';
 
@@ -89,7 +89,7 @@ class MainPage extends StatelessWidget {
                     } else if (options[index].title == 'BATTERY') {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => BatteryPage()),
+                        MaterialPageRoute(builder: (context) => BatteryStatus()),
                       );
                     } else if (options[index].title == 'TIME AND DATE') {
                       Navigator.push(
