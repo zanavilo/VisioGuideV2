@@ -15,7 +15,7 @@ class MainPage extends StatelessWidget {
     Option('OBJECT DETECTION', 'Detect the object', 'assets/obj.png'),
     Option('CALCULATOR', 'Perform mathematical calculations', 'assets/cal.png'),
     Option('WEATHER', 'Get weather details', 'assets/weather.png'),
-    // Option('NAVIGATION', 'Navigate to the destination', 'assets/nav.png'),
+    Option('NAVIGATION', 'Navigate to the destination', 'assets/nav.png'),
     Option('BATTERY', 'Get battery percentage', 'assets/batt.png'),
     Option('TIME AND DATE', 'Get time and date', 'assets/tnd.png'),
     Option('BACK', 'Return to Home screen', 'assets/back.png'),
@@ -81,11 +81,11 @@ class MainPage extends StatelessWidget {
                         context,
                         MaterialPageRoute(builder: (context) => WeatherPage()),
                       );
-                    /* } else if (options[index].title == 'NAVIGATION') {
+                    } else if (options[index].title == 'NAVIGATION') {
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => NavigationPage()),
-                      ); */
+                      );
                     } else if (options[index].title == 'BATTERY') {
                       Navigator.push(
                         context,

@@ -33,13 +33,12 @@ dependencies:
   cupertino_icons: ^1.0.8
   flutter_native_splash: ^2.0.5 # added this then flutter pub get in terminal
   permission_handler: ^10.2.0 # Replace 'latest_version' with the actual latest version
-  camera: ^0.10.6 # For camera
+  camera: ^0.10.0 # For camera
   vibration: ^1.7.4 # For vibration
   http: ^0.13.5  # For making HTTP requests
   geolocator: ^9.0.2  # For getting user's location (if you want location-based weather)
   intl: ^0.18.0  # Check for the latest version on pub.dev
   battery_plus: ^6.0.3
-  tflite: ^1.1.2
 
 # code for splash screen
 flutter_native_splash:
@@ -96,8 +95,6 @@ flutter:
     - assets/wppr.jpg
     - assets/wbg.jpg
     - assets/wpg.png
-    - assets/battery_high.png
-    - assets/battery_low.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
