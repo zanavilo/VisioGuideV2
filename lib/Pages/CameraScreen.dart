@@ -1,5 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
+import 'package:tflite/tflite.dart';
+
+List<CameraDescription> cameras;
+
+Future<void> main() async
+{
+  WidgetsFlutterBinding.ensureInitialized();
+  cameras = await availableCameras();
+}
 
 class CameraScreen extends StatefulWidget {
   @override
@@ -14,6 +23,15 @@ class _CameraScreenState extends State<CameraScreen> {
   void initState() {
     super.initState();
     _initializeCamera(); // Initialize the camera when the widget is created
+    loadModel();
+  }
+
+  loadModel() async
+  {
+    await Tflite.loadModel(
+      model: "mobilenet_v1_1.0_224.tflite",
+      labels: "mobilenet_v1_1.0_224.txt"
+    );
   }
 
   // Method to initialize the camera
@@ -28,6 +46,7 @@ class _CameraScreenState extends State<CameraScreen> {
         _controller = CameraController(
           cameras.first, // Use the first camera in the list
           ResolutionPreset.high, // Set the resolution
+          runModelOnStreamFrames();
         );
 
         // Initialize the controller and set the future
@@ -42,11 +61,21 @@ class _CameraScreenState extends State<CameraScreen> {
     }
   }
 
+  runModelOnStreamFrames() async
+  {
+    if(imgCamera )
+  }
+
   @override
-  void dispose() {
+  void dispose() async
+  {
     _controller.dispose(); // Dispose the controller when done
     super.dispose();
+
+    await Tflite.close();
+    cameraController?.dispose();
   }
+
 
   @override
   Widget build(BuildContext context) {
