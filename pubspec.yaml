@@ -95,6 +95,9 @@ flutter:
     - assets/wppr.jpg
     - assets/wbg.jpg
     - assets/wpg.png
+    - assets/battery_high.png
+    - assets/battery_low.png
+
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
