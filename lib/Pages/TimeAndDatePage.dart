@@ -27,13 +27,18 @@ class _TimeAndDatePageState extends State<TimeAndDatePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Date and Time Example"),
-      ),
-      body: Center(
-        child: Text(
-          formattedDate,
-          style: TextStyle(fontSize: 24),
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/wpg.png'), // Background image
+            fit: BoxFit.cover, // Cover the entire screen
+          ),
+        ),
+        child: Center(
+          child: Text(
+            formattedDate,
+            style: TextStyle(fontSize: 24, color: Colors.white), // Change text color for visibility
+          ),
         ),
       ),
     );
