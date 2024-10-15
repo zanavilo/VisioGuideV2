@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart'; // Necessary for UI components
 import 'package:flutter/services.dart'; // Import for HapticFeedback
+import 'package:vibration/vibration.dart'; // Import for Vibration
 import 'ReadPage.dart';
 import 'ObjectDetectionPage.dart';
 import 'CalculatorPage.dart';
@@ -57,50 +58,61 @@ class MainPage extends StatelessWidget {
                     style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                   ),
                   subtitle: Text(options[index].description),
-                  onTap: () {
-                    // Vibration feedback on tap
-                    HapticFeedback.lightImpact(); // Light vibration
+                  onTap: () async {
+                    // Check if device can vibrate
+                    if (await Vibration.hasVibrator() ?? false) {
+                      // Vibration feedback on tap
+                      Vibration.vibrate(duration: 100); // Vibrate for 100 milliseconds
+                    }
+
                     // Navigate to the respective feature page
-                    if (options[index].title == 'READ') {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => CameraScreen()),
-                      );
-                    } else if (options[index].title == 'OBJECT DETECTION') {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => CameraScreen()),
-                      );
-                    } else if (options[index].title == 'CALCULATOR') {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => CalculatorPage()),
-                      );
-                    } else if (options[index].title == 'WEATHER') {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => WeatherPage()),
-                      );
-                    } else if (options[index].title == 'NAVIGATION') {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => NavigationPage()),
-                      );
-                    } else if (options[index].title == 'BATTERY') {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => BatteryStatus()),
-                      );
-                    } else if (options[index].title == 'TIME AND DATE') {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => TimeAndDatePage()),
-                      );
+                    switch (options[index].title) {
+                      case 'READ':
+                      case 'OBJECT DETECTION':
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => CameraScreen()),
+                        );
+                        break;
+                      case 'CALCULATOR':
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => CalculatorPage()),
+                        );
+                        break;
+                      case 'WEATHER':
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => WeatherPage()),
+                        );
+                        break;
+                      case 'NAVIGATION':
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => NavigationPage()),
+                        );
+                        break;
+                      case 'BATTERY':
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => BatteryStatus()),
+                        );
+                        break;
+                      case 'TIME AND DATE':
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => TimeAndDatePage()),
+                        );
+                        break;
+                    // Handle BACK and EXIT options as needed
                     }
                   },
-                  onLongPress: () {
-                    // Vibration feedback on long press
-                    HapticFeedback.vibrate(); // Medium vibration on long press
+                  onLongPress: () async {
+                    // Check if device can vibrate
+                    if (await Vibration.hasVibrator() ?? false) {
+                      // Vibration feedback on long press
+                      Vibration.vibrate(duration: 200); // Vibrate for 200 milliseconds
+                    }
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text('Haptic feedback activated for ${options[index].title}'),
