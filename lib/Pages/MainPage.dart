@@ -5,7 +5,6 @@ import 'ReadPage.dart';
 import 'ObjectDetectionPage.dart';
 import 'CalculatorPage.dart';
 import 'WeatherPage.dart';
-import 'NavigationPage.dart';
 import 'BatteryStatus.dart';
 import 'TimeAndDatePage.dart';
 import 'CameraScreen.dart';
@@ -16,7 +15,6 @@ class MainPage extends StatelessWidget {
     Option('OBJECT DETECTION', 'Detect the object', 'assets/obj.png'),
     Option('CALCULATOR', 'Perform mathematical calculations', 'assets/cal.png'),
     Option('WEATHER', 'Get weather details', 'assets/weather.png'),
-    Option('NAVIGATION', 'Navigate to the destination', 'assets/nav.png'),
     Option('BATTERY', 'Get battery percentage', 'assets/batt.png'),
     Option('TIME AND DATE', 'Get time and date', 'assets/tnd.png'),
     Option('BACK', 'Return to Home screen', 'assets/back.png'),
@@ -84,12 +82,6 @@ class MainPage extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => WeatherPage()),
-                        );
-                        break;
-                      case 'NAVIGATION':
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => NavigationPage()),
                         );
                         break;
                       case 'BATTERY':
