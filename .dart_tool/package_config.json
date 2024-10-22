@@ -188,6 +188,12 @@
       "languageVersion": "3.3"
     },
     {
+      "name": "flutter_tts",
+      "rootUri": "file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_tts-4.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.15"
+    },
+    {
       "name": "flutter_web_plugins",
       "rootUri": "file:///C:/flutter/flutter_windows_3.24.3-stable/flutter/packages/flutter_web_plugins",
       "packageUri": "lib/",
@@ -488,7 +494,7 @@
       "languageVersion": "3.5"
     }
   ],
-  "generated": "2024-10-15T06:43:54.676200Z",
+  "generated": "2024-10-22T05:27:29.592546Z",
   "generator": "pub",
   "generatorVersion": "3.5.3",
   "flutterRoot": "file:///C:/flutter/flutter_windows_3.24.3-stable/flutter",

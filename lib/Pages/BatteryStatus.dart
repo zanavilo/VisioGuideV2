@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:battery_plus/battery_plus.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 
 class BatteryStatus extends StatefulWidget {
   @override
@@ -9,6 +10,7 @@ class BatteryStatus extends StatefulWidget {
 class _BatteryStatusState extends State<BatteryStatus> {
   final Battery _battery = Battery();
   int? _batteryLevel;
+  FlutterTts flutterTts = FlutterTts();
 
   @override
   void initState() {
@@ -16,11 +18,25 @@ class _BatteryStatusState extends State<BatteryStatus> {
     _getBatteryLevel();
   }
 
+  // Get battery level and then speak the level
   Future<void> _getBatteryLevel() async {
     final batteryLevel = await _battery.batteryLevel;
     setState(() {
       _batteryLevel = batteryLevel;
     });
+    _speakBatteryLevel(); // Trigger TTS after battery level is fetched
+  }
+
+  // Text-to-Speech function
+  Future<void> _speakBatteryLevel() async {
+    String text = _batteryLevel != null
+        ? 'Battery Level is $_batteryLevel percent.'
+        : 'Unable to retrieve battery level.';
+
+    await flutterTts.setLanguage("en-US");
+    await flutterTts.setPitch(1.0);
+    await flutterTts.setSpeechRate(0.5);
+    await flutterTts.speak(text);
   }
 
   @override
@@ -34,7 +50,7 @@ class _BatteryStatusState extends State<BatteryStatus> {
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/wpg.png'), // Background image
-            fit: BoxFit.cover, // Make the image cover the entire container
+            fit: BoxFit.cover,
           ),
         ),
         child: Center(
@@ -44,8 +60,8 @@ class _BatteryStatusState extends State<BatteryStatus> {
               // Display the appropriate battery image
               Image.asset(
                 batteryImage,
-                width: 100, // Adjust the width as needed
-                height: 100, // Adjust the height as needed
+                width: 100,
+                height: 100,
               ),
               SizedBox(height: 20),
               Text(
@@ -54,7 +70,7 @@ class _BatteryStatusState extends State<BatteryStatus> {
                     : 'Loading...',
                 style: TextStyle(
                   fontSize: 24,
-                  color: Colors.white, // Change the text color for better visibility
+                  color: Colors.white,
                 ),
               ),
             ],

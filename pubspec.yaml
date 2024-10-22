@@ -39,6 +39,7 @@ dependencies:
   geolocator: ^9.0.2  # For getting user's location (if you want location-based weather)
   intl: ^0.18.0  # Check for the latest version on pub.dev
   battery_plus: ^6.0.3
+  flutter_tts: ^4.0.2
 
 # code for splash screen
 flutter_native_splash:
