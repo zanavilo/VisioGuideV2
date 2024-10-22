@@ -39,41 +39,59 @@ class _BatteryStatusState extends State<BatteryStatus> {
     await flutterTts.speak(text);
   }
 
+  // Speak return message when navigating back
+  Future<void> _speakReturnMessage() async {
+    String returnMessage = 'You are at the main page. Swipe left to read all the options.';
+    await flutterTts.setLanguage("en-US");
+    await flutterTts.setPitch(1.0);
+    await flutterTts.setSpeechRate(0.5);
+    await flutterTts.speak(returnMessage);
+  }
+
   @override
   Widget build(BuildContext context) {
     String batteryImage = _batteryLevel != null && _batteryLevel! > 20
         ? 'assets/battery_high.png'
         : 'assets/battery_low.png';
 
-    return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/wpg.png'), // Background image
-            fit: BoxFit.cover,
+    return GestureDetector(
+      onHorizontalDragEnd: (details) {
+        // Detect right swipe
+        if (details.velocity.pixelsPerSecond.dx > 0) {
+          _speakReturnMessage(); // Speak return message before going back
+          Navigator.pop(context); // Navigate back to MainPage
+        }
+      },
+      child: Scaffold(
+        body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/wpg.png'), // Background image
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // Display the appropriate battery image
-              Image.asset(
-                batteryImage,
-                width: 100,
-                height: 100,
-              ),
-              SizedBox(height: 20),
-              Text(
-                _batteryLevel != null
-                    ? 'Battery Level: $_batteryLevel%'
-                    : 'Loading...',
-                style: TextStyle(
-                  fontSize: 24,
-                  color: Colors.white,
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // Display the appropriate battery image
+                Image.asset(
+                  batteryImage,
+                  width: 100,
+                  height: 100,
                 ),
-              ),
-            ],
+                SizedBox(height: 20),
+                Text(
+                  _batteryLevel != null
+                      ? 'Battery Level: $_batteryLevel%'
+                      : 'Loading...',
+                  style: TextStyle(
+                    fontSize: 24,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

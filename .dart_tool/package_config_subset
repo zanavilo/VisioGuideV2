@@ -162,6 +162,10 @@ intl
 2.12
 file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/intl-0.18.1/
 file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/intl-0.18.1/lib/
+json_annotation
+3.0
+file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/json_annotation-4.9.0/
+file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/json_annotation-4.9.0/lib/
 leak_tracker
 3.2
 file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/leak_tracker-10.0.5/
@@ -194,6 +198,10 @@ path
 3.0
 file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/path-1.9.0/
 file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/path-1.9.0/lib/
+pedantic
+2.12
+file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/pedantic-1.11.1/
+file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/pedantic-1.11.1/lib/
 permission_handler
 2.15
 file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/permission_handler-10.4.5/
@@ -226,6 +234,14 @@ source_span
 2.18
 file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/source_span-1.10.0/
 file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/source_span-1.10.0/lib/
+speech_to_text
+3.3
+file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/speech_to_text-7.0.0/
+file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/speech_to_text-7.0.0/lib/
+speech_to_text_platform_interface
+3.0
+file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/speech_to_text_platform_interface-2.3.0/
+file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/speech_to_text_platform_interface-2.3.0/lib/
 sprintf
 2.12
 file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/sprintf-7.0.0/

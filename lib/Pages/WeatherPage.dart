@@ -82,52 +82,69 @@ class _WeatherPageState extends State<WeatherPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/wpg.png'), // Use your asset image here
-            fit: BoxFit.cover, // Cover the entire screen
-          ),
-        ),
-        child: Center(
-          child: temperature.isNotEmpty
-              ? SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Location: $locationName',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
-                  ),
-                  SizedBox(height: 10),
-                  Text(
-                    'Temperature: $temperature °C',
-                    style: TextStyle(fontSize: 20, color: Colors.white),
-                  ),
-                  SizedBox(height: 5),
-                  Text(
-                    'Condition: $weatherDescription',
-                    style: TextStyle(fontSize: 18, color: Colors.white),
-                    textAlign: TextAlign.center, // Center align the condition text
-                  ),
-                  SizedBox(height: 20), // Spacing between sections
-                  _buildWeatherCard('Humidity', '$humidity %', Icons.opacity),
-                  _buildWeatherCard('Precipitation', '$precipitation mm', Icons.cloud),
-                  _buildWeatherCard('Wind Speed', '$windSpeed kph', Icons.air),
-                  _buildWeatherCard('Wind Direction', windDirection, Icons.navigation),
-                  _buildWeatherCard('Cloud Cover', '$cloudCover %', Icons.cloud_circle),
-                  _buildWeatherCard('Visibility', '$visibility km ($visibilityCondition)', Icons.visibility), // Show visibility condition
-                ],
-              ),
+    return GestureDetector(
+      onHorizontalDragEnd: (details) {
+        // Detect right swipe
+        if (details.velocity.pixelsPerSecond.dx > 0) {
+          _speakReturnMessage(); // Speak return message before going back
+          Navigator.pop(context); // Navigate back to MainPage
+        }
+      },
+      child: Scaffold(
+        body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/wpg.png'), // Use your asset image here
+              fit: BoxFit.cover, // Cover the entire screen
             ),
-          )
-              : CircularProgressIndicator(),
+          ),
+          child: Center(
+            child: temperature.isNotEmpty
+                ? SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Location: $locationName',
+                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      'Temperature: $temperature °C',
+                      style: TextStyle(fontSize: 20, color: Colors.white),
+                    ),
+                    SizedBox(height: 5),
+                    Text(
+                      'Condition: $weatherDescription',
+                      style: TextStyle(fontSize: 18, color: Colors.white),
+                      textAlign: TextAlign.center, // Center align the condition text
+                    ),
+                    SizedBox(height: 20), // Spacing between sections
+                    _buildWeatherCard('Humidity', '$humidity %', Icons.opacity),
+                    _buildWeatherCard('Precipitation', '$precipitation mm', Icons.cloud),
+                    _buildWeatherCard('Wind Speed', '$windSpeed kph', Icons.air),
+                    _buildWeatherCard('Wind Direction', windDirection, Icons.navigation),
+                    _buildWeatherCard('Cloud Cover', '$cloudCover %', Icons.cloud_circle),
+                    _buildWeatherCard('Visibility', '$visibility km ($visibilityCondition)', Icons.visibility), // Show visibility condition
+                  ],
+                ),
+              ),
+            )
+                : CircularProgressIndicator(),
+          ),
         ),
       ),
     );
+  }
+
+  Future<void> _speakReturnMessage() async {
+    String returnMessage = 'You are at the main page. Swipe left to read all the options.';
+    await flutterTts.setLanguage("en-US");
+    await flutterTts.setPitch(1.0);
+    await flutterTts.setSpeechRate(0.5); // Adjust speech rate as needed
+    await flutterTts.speak(returnMessage);
   }
 
   Widget _buildWeatherCard(String title, String value, IconData icon) {

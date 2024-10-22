@@ -35,23 +35,47 @@ class _TimeAndDatePageState extends State<TimeAndDatePage> {
     await flutterTts.speak('Current time is $time');
   }
 
+  // Speak return message when navigating back
+  Future<void> _speakReturnMessage() async {
+    String returnMessage = 'You are at the main page. Swipe left to read all the options.';
+    await flutterTts.setLanguage("en-US");
+    await flutterTts.setPitch(1.0);
+    await flutterTts.setSpeechRate(0.5);
+    await flutterTts.speak(returnMessage);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/wpg.png'), // Background image
-            fit: BoxFit.cover, // Cover the entire screen
+    return GestureDetector(
+      onHorizontalDragEnd: (details) {
+        // Detect right swipe
+        if (details.velocity.pixelsPerSecond.dx > 0) {
+          _speakReturnMessage(); // Speak return message before going back
+          Navigator.pop(context); // Navigate back to MainPage
+        }
+      },
+      child: Scaffold(
+        body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/wpg.png'), // Background image
+              fit: BoxFit.cover, // Cover the entire screen
+            ),
           ),
-        ),
-        child: Center(
-          child: Text(
-            formattedDate,
-            style: TextStyle(fontSize: 24, color: Colors.white), // Change text color for visibility
+          child: Center(
+            child: Text(
+              formattedDate,
+              style: TextStyle(fontSize: 24, color: Colors.white), // Change text color for visibility
+            ),
           ),
         ),
       ),
     );
   }
+}
+
+void main() {
+  runApp(MaterialApp(
+    home: TimeAndDatePage(),
+  ));
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart'; // Necessary for UI components
 import 'package:flutter/services.dart'; // Import for HapticFeedback
 import 'package:vibration/vibration.dart'; // Import for Vibration
 import 'package:flutter_tts/flutter_tts.dart'; // Import for TTS
+import 'package:speech_to_text/speech_to_text.dart' as stt; // Import for speech recognition
 import 'ReadPage.dart';
 import 'ObjectDetectionPage.dart';
 import 'CalculatorPage.dart';
@@ -15,8 +16,11 @@ class MainPage extends StatefulWidget {
   _MainPageState createState() => _MainPageState();
 }
 
-class _MainPageState extends State<MainPage> {
+class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
   final FlutterTts flutterTts = FlutterTts(); // TTS instance
+  late stt.SpeechToText _speech; // SpeechToText instance
+  bool _isListening = false;
+  bool _isSpeaking = false; // Track if TTS is currently speaking
 
   final List<Option> options = [
     Option('READ', 'to read text using the camera', 'assets/read.png'),
@@ -31,10 +35,14 @@ class _MainPageState extends State<MainPage> {
 
   // Function to speak the selected option with description
   Future<void> _speak(String text) async {
+    _isSpeaking = true; // Set speaking state to true
     await flutterTts.setLanguage("en-US");
     await flutterTts.setPitch(1.0);
     await flutterTts.setSpeechRate(0.4); // Slower speech rate
     await flutterTts.speak(text);
+    flutterTts.setCompletionHandler(() {
+      _isSpeaking = false; // Set speaking state to false when done
+    });
   }
 
   // Automatically read all options with description when the page opens
@@ -45,12 +53,42 @@ class _MainPageState extends State<MainPage> {
     await _speak("Options available are: $allOptions");
   }
 
-  // Function to speak the title and description of all options
-  Future<void> _speakAllTitlesAndDescriptions() async {
-    for (var option in options) {
-      await _speak('${option.title} - ${option.description}');
-      // Wait a bit before speaking the next option (optional)
-      await Future.delayed(Duration(milliseconds: 3500)); // Adjust delay as needed
+  Future<void> _startListening() async {
+    _speech = stt.SpeechToText(); // Initialize SpeechToText object
+    bool available = await _speech.initialize();
+    if (available) {
+      setState(() => _isListening = true);
+      _speech.listen(onResult: (result) {
+        // Check for recognized command
+        _handleCommand(result.recognizedWords);
+      });
+    }
+  }
+
+  void _stopListening() {
+    _speech.stop();
+    setState(() => _isListening = false);
+  }
+
+  // Handle the recognized command
+  void _handleCommand(String command) {
+    // Check specific commands and take action
+    if (command.toLowerCase().contains('weather')) {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => WeatherPage()));
+    } else if (command.toLowerCase().contains('battery')) {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => BatteryStatus()));
+    } else if (command.toLowerCase().contains('read')) {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => CameraScreen()));
+    } else if (command.toLowerCase().contains('object detection')) {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => CameraScreen()));
+    } else if (command.toLowerCase().contains('calculator')) {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => CalculatorPage()));
+    } else if (command.toLowerCase().contains('time and date')) {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => TimeAndDatePage()));
+    } else if (command.toLowerCase().contains('back')) {
+      Navigator.pop(context); // Go back to the previous page
+    } else if (command.toLowerCase().contains('exit')) {
+      SystemChannels.platform.invokeMethod('SystemNavigator.pop'); // Close the app
     }
   }
 
@@ -58,6 +96,20 @@ class _MainPageState extends State<MainPage> {
   void initState() {
     super.initState();
     _speakAllOptions(); // Automatically speak all the options with description on page load
+    WidgetsBinding.instance.addObserver(this); // Add observer for app lifecycle
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this); // Remove observer
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      _speakAllOptions(); // Speak options when returning to the app
+    }
   }
 
   @override
@@ -69,9 +121,15 @@ class _MainPageState extends State<MainPage> {
       ),
       body: GestureDetector(
         onHorizontalDragEnd: (details) {
+          // Detect right swipe
+          if (details.velocity.pixelsPerSecond.dx > 0) {
+            _speak("Voice command activated"); // Speak the activation message
+            _startListening(); // Activate voice command on right swipe
+          }
+
           // Detect left swipe
-          if (details.velocity.pixelsPerSecond.dx < 0) {
-            _speakAllTitlesAndDescriptions(); // Speak all titles and descriptions on left swipe
+          else if (details.velocity.pixelsPerSecond.dx < 0) {
+            _speakAllOptions(); // Speak options on left swipe
           }
         },
         child: Stack(
@@ -112,9 +170,13 @@ class _MainPageState extends State<MainPage> {
                       // Speak the selected option and description
                       await _speak('Say ${options[index].title}: ${options[index].description}');
 
-                      // Navigate to the respective feature page
+                      // Navigate to the respective feature page based on the title
                       switch (options[index].title) {
                         case 'READ':
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => CameraScreen()),
+                          );
                         case 'OBJECT DETECTION':
                           Navigator.push(
                             context,
