@@ -25,7 +25,7 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
   final List<Option> options = [
     Option('READ', 'to read text using the camera', 'assets/read.png'),
     Option('OBJECT DETECTION', 'to detect an object', 'assets/obj.png'),
-    Option('CALCULATOR', 'to perform math calculations', 'assets/cal.png'),
+    Option('CALCULATOR', 'to perform math calculations.', 'assets/cal.png'),
     Option('WEATHER', 'to get weather details', 'assets/weather.png'),
     Option('BATTERY', 'to check battery percentage', 'assets/batt.png'),
     Option('TIME AND DATE', 'to check the current time and date', 'assets/tnd.png'),

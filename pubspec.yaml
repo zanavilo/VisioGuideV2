@@ -41,6 +41,7 @@ dependencies:
   battery_plus: ^6.0.3
   flutter_tts: ^4.0.2
   speech_to_text: ^7.0.0
+  expressions: ^0.2.5+2
 
 # code for splash screen
 flutter_native_splash:
