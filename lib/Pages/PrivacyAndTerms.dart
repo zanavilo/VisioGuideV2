@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:visioguide/Pages/AllowAccess.dart';
-import 'package:visioguide/Pages/InfoSlider.dart';
+import 'package:visioguide/Pages/TermOfService.dart';
+import 'package:visioguide/Pages/PrivacyPolicy.dart'; // Import PrivacyPolicy
 
 class PrivacyAndTerms extends StatefulWidget {
   const PrivacyAndTerms({super.key});
@@ -10,6 +11,8 @@ class PrivacyAndTerms extends StatefulWidget {
 }
 
 class _PrivacyAndTermsState extends State<PrivacyAndTerms> {
+  bool isPrivacyPolicyAccepted = false; // Track if the privacy policy checkbox is checked
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,16 +22,14 @@ class _PrivacyAndTermsState extends State<PrivacyAndTerms> {
       ),
       body: Stack(
         children: [
-          // Background image
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage("assets/wpg.png"),
-                fit: BoxFit.cover, // Make sure the image covers the screen
+                fit: BoxFit.cover,
               ),
             ),
           ),
-          // The content of the page
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
@@ -39,7 +40,7 @@ class _PrivacyAndTermsState extends State<PrivacyAndTerms> {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
-                    color: Colors.white, // Make the text visible over the background
+                    color: Colors.white,
                   ),
                 ),
                 const SizedBox(height: 16),
@@ -49,42 +50,63 @@ class _PrivacyAndTermsState extends State<PrivacyAndTerms> {
                 const SizedBox(height: 16),
                 _buildTermRow(Icons.lock, 'The data, videos, images, and personal information I submit to Visio-Guide may be stored and processed.'),
                 const SizedBox(height: 32),
+
                 ElevatedButton(
-                  onPressed: () {
-                    // TODO: Navigate to Terms of Service page
+                  onPressed: () async {
+                    await Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => const TermOfServices()),
+                    );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
+                    backgroundColor: Colors.blue, // Always blue
                     minimumSize: const Size.fromHeight(50),
                   ),
-                  child: const Text('Terms of Service', style: TextStyle(color: Colors.white)),
+                  child: const Text('Terms of Service and Privacy Policy', style: TextStyle(color: Colors.white)),
                 ),
-                const SizedBox(height: 16),
-                ElevatedButton(
-                  onPressed: () {
-                    // TODO: Navigate to Privacy Policy page
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                    minimumSize: const Size.fromHeight(50),
-                  ),
-                  child: const Text('Privacy Policy', style: TextStyle(color: Colors.white)),
-                ),
+
                 const SizedBox(height: 32),
+
                 const Text(
                   'By clicking "I agree", I agree to everything above and accept the Terms of Service and Privacy Policy.',
-                  style: TextStyle(color: Colors.white), // Ensure readability
+                  style: TextStyle(color: Colors.white),
                 ),
-                const SizedBox(height: 24), // Increased spacing
+                const SizedBox(height: 16),
+
+                // Checkbox for Privacy Policy acceptance
+                Row(
+                  children: [
+                    Checkbox(
+                      value: isPrivacyPolicyAccepted,
+                      onChanged: (value) {
+                        setState(() {
+                          isPrivacyPolicyAccepted = value ?? false;
+                        });
+                      },
+                    ),
+                    const Expanded(
+                      child: Text(
+                        'I have read and accept the Privacy Policy.',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ],
+                ),
+
+                const SizedBox(height: 24),
                 Center(
                   child: ElevatedButton(
-                    onPressed: () {
+                    onPressed: isPrivacyPolicyAccepted // Only clickable if privacy policy accepted
+                        ? () {
+                      // Navigate to the Allow Access page
                       Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context) => AllowAccess()),
+                        MaterialPageRoute(
+                          builder: (context) => const AllowAccess(),
+                        ),
                       );
-                    },
+                    }
+                        : null, // Disable if privacy policy not accepted
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
+                      backgroundColor: Colors.blue, // Always blue
                       minimumSize: const Size.fromHeight(50),
                     ),
                     child: const Text('I agree', style: TextStyle(color: Colors.white)),
@@ -98,7 +120,6 @@ class _PrivacyAndTermsState extends State<PrivacyAndTerms> {
     );
   }
 
-  // Helper function to build each term row
   Widget _buildTermRow(IconData icon, String text) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -108,10 +129,11 @@ class _PrivacyAndTermsState extends State<PrivacyAndTerms> {
         Expanded(
           child: Text(
             text,
-            style: const TextStyle(fontSize: 16, color: Colors.white), // Make text color white
+            style: const TextStyle(fontSize: 16, color: Colors.white),
           ),
         ),
       ],
     );
   }
 }
+
