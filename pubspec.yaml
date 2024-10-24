@@ -42,6 +42,7 @@ dependencies:
   flutter_tts: ^4.0.2
   speech_to_text: ^7.0.0
   expressions: ^0.2.5+2
+  shared_preferences: ^2.0.0
 
 # code for splash screen
 flutter_native_splash:

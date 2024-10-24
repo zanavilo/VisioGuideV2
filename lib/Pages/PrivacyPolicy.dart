@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:visioguide/Pages/PrivacyAndTerms.dart'; // Import your PrivacyAndTerms page
 
 class PrivacyPolicy extends StatelessWidget {
   const PrivacyPolicy({super.key});
@@ -10,121 +11,68 @@ class PrivacyPolicy extends StatelessWidget {
         title: const Text('Privacy Policy', style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.blue,
       ),
-      body: SingleChildScrollView(
+      body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Privacy Policy\nVisio-Guide App\nLast updated: [Date]\n',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                "Privacy Policy for Visio-Guide\n"
+                    "Last Updated: [Date]\n\n"
+                    "This Privacy Policy describes how Visio-Guide (\"we,\" \"our,\" or \"us\") collects, uses, and shares personal information when you use our application designed to assist visually impaired individuals.\n\n"
+                    "By using Visio-Guide, you consent to the data practices described in this policy. If you do not agree with the terms of this policy, please do not use our app.\n\n"
+                    "1. Information We Collect\n"
+                    "   Personal Data\n"
+                    "   We may collect the following personal information when you use Visio-Guide:\n"
+                    "   - Visual Data: Data captured through your device's camera to assist with object detection and text reading.\n"
+                    "   - Audio Data: Voice commands and audio recordings to facilitate user interaction and enhance functionality.\n\n"
+                    "   Non-Personal Data\n"
+                    "   We may also collect non-personal information that does not directly identify you, including:\n"
+                    "   - Device information (e.g., model, operating system).\n"
+                    "   - Usage data (e.g., time spent on the app, features used).\n\n"
+                    "2. How We Use Your Information\n"
+                    "   We use the information we collect for the following purposes:\n"
+                    "   - To Provide and Maintain Our App: To deliver the features and functionalities of Visio-Guide.\n"
+                    "   - To Improve Our App: To analyze usage and make enhancements.\n"
+                    "   - To Communicate with You: To respond to inquiries, provide customer support, and send updates regarding the app.\n"
+                    "   - To Ensure Security: To monitor for potential security threats and fraudulent activity.\n\n"
+                    "3. Data Sharing and Disclosure\n"
+                    "   We do not sell or rent your personal information to third parties. However, we may share your information in the following situations:\n"
+                    "   - With Service Providers: We may employ third-party companies to facilitate our services, such as cloud storage providers. These service providers will only have access to your information to perform specific tasks on our behalf.\n"
+                    "   - For Legal Reasons: We may disclose your information if required to do so by law or in response to valid requests by public authorities (e.g., a court or a government agency).\n\n"
+                    "4. Data Security\n"
+                    "   We take the security of your personal information seriously. We implement appropriate technical and organizational measures to protect your data against unauthorized access, loss, or destruction. However, no method of transmission over the internet or electronic storage is 100% secure. Therefore, we cannot guarantee its absolute security.\n\n"
+                    "5. Your Choices\n"
+                    "   You have the following rights regarding your personal information:\n"
+                    "   - Access and Update: You can access and update your information through the app's settings.\n"
+                    "   - Opt-Out: You can opt out of certain data collection by disabling specific features in your device settings.\n"
+                    "   - Delete Data: You can request the deletion of your personal data by contacting us.\n\n"
+                    "6. Children’s Privacy\n"
+                    "   Visio-Guide is not intended for use by children under the age of 13. We do not knowingly collect personal information from children. If we become aware that we have collected personal data from a child, we will take steps to delete such information.\n\n"
+                    "7. Changes to This Privacy Policy\n"
+                    "   We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new policy in the app and updating the \"Last Updated\" date at the top of this policy. Your continued use of the app after changes indicates your acceptance of the new terms.\n\n"
+                    "8. Contact Us\n"
+                    "   If you have any questions or concerns about this Privacy Policy, please contact us at [Support Email].",
+                style: TextStyle(fontSize: 16),
               ),
-            ),
-            const Text(
-              'At Visio-Guide, we are committed to protecting the privacy and security of our users\' personal information. This Privacy Policy explains how we collect, use, and disclose information when you use our app. By using Visio-Guide, you agree to the collection and use of information in accordance with this policy.\n',
-              style: TextStyle(fontSize: 16),
-            ),
-            _buildSectionTitle('1. Information We Collect'),
-            const Text(
-              'We collect the following types of information to provide and improve the Visio-Guide experience:\n',
-              style: TextStyle(fontSize: 16),
-            ),
-            _buildSubSectionTitle('a. Personal Information'),
-            const Text(
-              'When using certain features of Visio-Guide, we may collect personal information, including but not limited to:\n- Voice commands and audio data.\n- Images and text captured via the camera for text reading or object detection.\n- Geolocation data (for navigation or weather features).\n',
-            ),
-            _buildSubSectionTitle('b. Non-Personal Information'),
-            const Text(
-              'We may collect non-personal information that does not identify you directly, such as:\n- Device information (e.g., device model, operating system version).\n- App usage data (e.g., frequency of feature use).\n',
-            ),
-            _buildSectionTitle('2. How We Use Your Information'),
-            const Text(
-              'We use the information collected for the following purposes:\n',
-              style: TextStyle(fontSize: 16),
-            ),
-            const Text(
-              '- Improving App Functionality: Personal information, such as voice commands and camera inputs, is used to provide core features like text reading, object detection, and other assistive services.\n'
-                  '- Customization: To personalize your experience based on your preferences.\n'
-                  '- Analytics: Non-personal data is used for analytics to improve app performance and troubleshoot issues.\n'
-                  '- Communication: To respond to support requests or feedback.\n',
-            ),
-            _buildSectionTitle('3. Data Sharing and Disclosure'),
-            const Text(
-              'We do not sell, trade, or rent your personal information to third parties. However, we may share data with third parties in the following instances:\n',
-              style: TextStyle(fontSize: 16),
-            ),
-            const Text(
-              '- Service Providers: We may work with third-party service providers to help operate our app (e.g., text-to-speech engines or cloud storage for data processing). These providers have access to personal information only to perform specific tasks on our behalf.\n'
-                  '- Legal Requirements: We may disclose your information if required to do so by law or if we believe that such action is necessary to comply with legal obligations, protect our rights, or prevent fraud.\n',
-            ),
-            _buildSectionTitle('4. Data Retention'),
-            const Text(
-              'We retain your personal data only for as long as is necessary to fulfill the purposes outlined in this Privacy Policy. We will retain and use your information to the extent necessary to comply with our legal obligations, resolve disputes, and enforce our agreements.\n',
-            ),
-            _buildSectionTitle('5. Security of Your Information'),
-            const Text(
-              'We take reasonable measures to protect your personal information from unauthorized access, use, or disclosure. However, please remember that no method of transmission over the Internet or method of electronic storage is 100% secure, and we cannot guarantee its absolute security.\n',
-            ),
-            _buildSectionTitle('6. Your Rights'),
-            const Text(
-              'You have certain rights regarding your personal information, including:\n',
-              style: TextStyle(fontSize: 16),
-            ),
-            const Text(
-              '- The right to access and request copies of your personal information.\n'
-                  '- The right to request the correction of inaccurate information.\n'
-                  '- The right to request the deletion of your personal information under certain conditions.\n'
-                  '- The right to withdraw consent for data processing at any time.\n',
-            ),
-            _buildSectionTitle('7. Changes to This Privacy Policy'),
-            const Text(
-              'We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page. You are advised to review this Privacy Policy periodically for any changes.\n',
-            ),
-            _buildSectionTitle('8. Contact Us'),
-            const Text(
-              'If you have any questions or concerns about this Privacy Policy, please contact us at [Support Email].\n',
-            ),
-            const SizedBox(height: 20), // Adds space before the button
-            Center(
-              child: ElevatedButton(
-                onPressed: () {
-                  // Navigate to PrivacyAndTerms.dart
-                  Navigator.pushNamed(context, '/PrivacyAndTerms'); // Ensure the route is defined
-                },
-                child: const Text('Back to Privacy and Terms'),
+              const SizedBox(height: 32),
+              Center(
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (context) => const PrivacyAndTerms()), // Navigate to PrivacyAndTerms page
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                    minimumSize: const Size.fromHeight(50),
+                  ),
+                  child: const Text('Back', style: TextStyle(color: Colors.white)),
+                ),
               ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  // Helper function to build section titles
-  Widget _buildSectionTitle(String title) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 16.0, bottom: 8.0),
-      child: Text(
-        title,
-        style: const TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 16,
-        ),
-      ),
-    );
-  }
-
-  // Helper function to build subsection titles
-  Widget _buildSubSectionTitle(String title) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 8.0, bottom: 4.0, left: 8.0),
-      child: Text(
-        title,
-        style: const TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 14,
+            ],
+          ),
         ),
       ),
     );

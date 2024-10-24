@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:visioguide/Pages/MainPage.dart';
 
 class InfoSlider extends StatefulWidget {
@@ -9,6 +10,30 @@ class InfoSlider extends StatefulWidget {
 class _InfoSliderState extends State<InfoSlider> {
   final PageController _controller = PageController();
   int _currentPage = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkIfOnboardingSeen();
+  }
+
+  Future<void> _checkIfOnboardingSeen() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool? seen = prefs.getBool('onboarding_seen');
+
+    // If seen is true, navigate to MainPage
+    if (seen == true) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => MainPage()),
+      );
+    }
+  }
+
+  Future<void> _setOnboardingSeen() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('onboarding_seen', true);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +48,7 @@ class _InfoSliderState extends State<InfoSlider> {
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/wpg.png"), // Ensure this image is in your assets
+                image: AssetImage("assets/wpg.png"),
                 fit: BoxFit.cover,
               ),
             ),
@@ -36,7 +61,6 @@ class _InfoSliderState extends State<InfoSlider> {
               });
             },
             children: [
-              // Define each page with content
               InfoPage(
                 imagePath: 'assets/eye.png',
                 title: 'Welcome to Visio-Guide',
@@ -57,16 +81,21 @@ class _InfoSliderState extends State<InfoSlider> {
                 title: 'Get Started!',
                 description: 'Start using Visio-Guide by going to the Main Page and simply saying "SAY" then the feature you want to use.',
               ),
+              InfoPage(
+                imagePath: 'assets/new_user.png',
+                title: 'New User? Welcome!',
+                description: 'We are thrilled to have you! Explore the features, and let Visio-Guide assist you in navigating your surroundings safely and effectively.',
+              ),
             ],
           ),
           // Page indicator dots
           Positioned(
-            bottom: 80.0, // Position above the button
+            bottom: 80.0,
             left: 0,
             right: 0,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(4, (index) {
+              children: List.generate(5, (index) {
                 return Container(
                   margin: const EdgeInsets.symmetric(horizontal: 4.0),
                   height: 8.0,
@@ -79,35 +108,34 @@ class _InfoSliderState extends State<InfoSlider> {
               }),
             ),
           ),
-          // Conditionally show the 'Go to Main Page' button on the last page
-          if (_currentPage == 3) // Index 3 is the last page (0-based index)
+          if (_currentPage == 4) // Updated for the new last page
             Positioned(
               bottom: 20.0,
               left: 0,
               right: 0,
               child: Center(
                 child: SizedBox(
-                  width: double.infinity, // Make the button width dynamic (like in PrivacyAndTerms.dart)
+                  width: double.infinity,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 40.0), // Adjust padding to make the button size similar
+                    padding: const EdgeInsets.symmetric(horizontal: 40.0),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue,    // Button background color
-                        foregroundColor: Colors.white, // Button text color
-                        padding: const EdgeInsets.symmetric(vertical: 15.0), // Similar button height
-                        textStyle: const TextStyle(fontSize: 18), // Font size for text inside button
+                        backgroundColor: Colors.blue,
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(vertical: 15.0),
+                        textStyle: const TextStyle(fontSize: 18),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10), // Rounded corners
+                          borderRadius: BorderRadius.circular(10),
                         ),
                       ),
                       onPressed: () {
-                        // Use Navigator.pushReplacement to navigate to MainPage
+                        _setOnboardingSeen(); // Set the flag to true
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(builder: (context) => MainPage()),
                         );
                       },
-                      child: const Text('Go to Main Page'), // Button text
+                      child: const Text('Go to Main Page'),
                     ),
                   ),
                 ),
@@ -138,23 +166,17 @@ class InfoPage extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // Display the image for each slide
-          Image.asset(imagePath, height: 200, // Adjust height as necessary
-          ),
+          Image.asset(imagePath, height: 200),
           const SizedBox(height: 20),
-          // Display the title for each slide
           Text(
             title,
-            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white
-            ),
+            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 10),
-          // Display the description for each slide
           Text(
             description,
-            style: const TextStyle(fontSize: 16, color: Colors.white
-            ),
+            style: const TextStyle(fontSize: 16, color: Colors.white),
             textAlign: TextAlign.center,
           ),
         ],

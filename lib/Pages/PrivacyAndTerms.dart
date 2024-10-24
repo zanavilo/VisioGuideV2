@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:visioguide/Pages/AllowAccess.dart';
-import 'package:visioguide/Pages/TermOfService.dart';
-import 'package:visioguide/Pages/PrivacyPolicy.dart'; // Import PrivacyPolicy
+import 'package:visioguide/Pages/TermsOfService.dart'; // Import the TermOfService page
 
 class PrivacyAndTerms extends StatefulWidget {
   const PrivacyAndTerms({super.key});
@@ -11,7 +11,40 @@ class PrivacyAndTerms extends StatefulWidget {
 }
 
 class _PrivacyAndTermsState extends State<PrivacyAndTerms> {
-  bool isPrivacyPolicyAccepted = false; // Track if the privacy policy checkbox is checked
+  bool _isAgreed = false; // Variable to track checkbox state
+  bool _isFirstVisit = true; // Variable to track if it's the first visit
+
+  @override
+  void initState() {
+    super.initState();
+    _checkFirstVisit();
+  }
+
+  Future<void> _checkFirstVisit() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool? hasAgreed = prefs.getBool('hasAgreedTerms');
+
+    if (hasAgreed == true) {
+      // If the user has already agreed, navigate to AllowAccess
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => const AllowAccess()),
+      );
+    } else {
+      setState(() {
+        _isFirstVisit = true; // Show the terms and conditions
+      });
+    }
+  }
+
+  Future<void> _acceptTerms() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('hasAgreedTerms', true); // Set the flag to true
+
+    // Navigate to AllowAccess
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (context) => const AllowAccess()),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,14 +55,16 @@ class _PrivacyAndTermsState extends State<PrivacyAndTerms> {
       ),
       body: Stack(
         children: [
+          // Background image
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage("assets/wpg.png"),
-                fit: BoxFit.cover,
+                fit: BoxFit.cover, // Make sure the image covers the screen
               ),
             ),
           ),
+          // The content of the page
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
@@ -40,7 +75,7 @@ class _PrivacyAndTermsState extends State<PrivacyAndTerms> {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
-                    color: Colors.white,
+                    color: Colors.white, // Make the text visible over the background
                   ),
                 ),
                 const SizedBox(height: 16),
@@ -50,66 +85,57 @@ class _PrivacyAndTermsState extends State<PrivacyAndTerms> {
                 const SizedBox(height: 16),
                 _buildTermRow(Icons.lock, 'The data, videos, images, and personal information I submit to Visio-Guide may be stored and processed.'),
                 const SizedBox(height: 32),
-
                 ElevatedButton(
-                  onPressed: () async {
-                    await Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => const TermOfServices()),
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => const TermOfService()), // Navigate to TermOfService page
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue, // Always blue
+                    backgroundColor: Colors.blue,
                     minimumSize: const Size.fromHeight(50),
                   ),
-                  child: const Text('Terms of Service and Privacy Policy', style: TextStyle(color: Colors.white)),
+                  child: const Text('Terms of Services & Privacy Policy', style: TextStyle(color: Colors.white)),
                 ),
-
                 const SizedBox(height: 32),
-
-                const Text(
-                  'By clicking "I agree", I agree to everything above and accept the Terms of Service and Privacy Policy.',
-                  style: TextStyle(color: Colors.white),
-                ),
-                const SizedBox(height: 16),
-
-                // Checkbox for Privacy Policy acceptance
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Checkbox(
-                      value: isPrivacyPolicyAccepted,
-                      onChanged: (value) {
+                      value: _isAgreed,
+                      onChanged: (bool? value) {
                         setState(() {
-                          isPrivacyPolicyAccepted = value ?? false;
+                          _isAgreed = value ?? false;
                         });
                       },
                     ),
-                    const Expanded(
-                      child: Text(
-                        'I have read and accept the Privacy Policy.',
+                    const SizedBox(width: 8),
+                    Flexible(
+                      child: const Text(
+                        'By checking this, I confirm that I have read, understand, and agree to the Terms of Service and Privacy Policy.',
                         style: TextStyle(color: Colors.white),
                       ),
                     ),
                   ],
                 ),
-
-                const SizedBox(height: 24),
+                const SizedBox(height: 24), // Increased spacing
                 Center(
                   child: ElevatedButton(
-                    onPressed: isPrivacyPolicyAccepted // Only clickable if privacy policy accepted
+                    onPressed: _isAgreed
                         ? () {
-                      // Navigate to the Allow Access page
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(
-                          builder: (context) => const AllowAccess(),
-                        ),
-                      );
+                      _acceptTerms(); // Call the method to accept terms
                     }
-                        : null, // Disable if privacy policy not accepted
+                        : null, // Disable button if not agreed
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue, // Always blue
+                      backgroundColor: _isAgreed ? Colors.blue : Colors.grey, // Gray when disabled
                       minimumSize: const Size.fromHeight(50),
                     ),
-                    child: const Text('I agree', style: TextStyle(color: Colors.white)),
+                    child: Text(
+                      'I agree',
+                      style: TextStyle(
+                        color: _isAgreed ? Colors.white : Colors.black, // Black text when disabled
+                      ),
+                    ),
                   ),
                 ),
               ],
@@ -120,6 +146,7 @@ class _PrivacyAndTermsState extends State<PrivacyAndTerms> {
     );
   }
 
+  // Helper function to build each term row
   Widget _buildTermRow(IconData icon, String text) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -129,11 +156,10 @@ class _PrivacyAndTermsState extends State<PrivacyAndTerms> {
         Expanded(
           child: Text(
             text,
-            style: const TextStyle(fontSize: 16, color: Colors.white),
+            style: const TextStyle(fontSize: 16, color: Colors.white), // Make text color white
           ),
         ),
       ],
     );
   }
 }
-

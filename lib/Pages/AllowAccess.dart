@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:visioguide/Pages/InfoSlider.dart';
-import 'MainPage.dart'; // Replace this with the actual path of your MainPage
 import 'package:permission_handler/permission_handler.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AllowAccess extends StatefulWidget {
   const AllowAccess({Key? key}) : super(key: key);
@@ -12,10 +12,35 @@ class AllowAccess extends StatefulWidget {
 
 class _AllowAccessState extends State<AllowAccess> {
   bool _isRequestingPermissions = false;
+  bool _hasAccessedBefore = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkIfAccessedBefore();
+  }
+
+  // Check if the user has accessed this screen before
+  Future<void> _checkIfAccessedBefore() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool accessedBefore = prefs.getBool('hasAccessedBefore') ?? false;
+
+    if (accessedBefore) {
+      // Navigate to InfoSlider if already accessed
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => InfoSlider()),
+      );
+    } else {
+      // User is new; set the flag to true
+      setState(() {
+        _hasAccessedBefore = false;
+      });
+    }
+  }
 
   // Method to request permissions
   Future<void> _requestPermissions() async {
-    // Set loading state to true
     setState(() {
       _isRequestingPermissions = true;
     });
@@ -31,13 +56,14 @@ class _AllowAccessState extends State<AllowAccess> {
     // Check if all permissions are granted
     bool allGranted = statuses.values.every((status) => status.isGranted);
 
-    // Set loading state back to false
     setState(() {
       _isRequestingPermissions = false;
     });
 
     // If all permissions are granted, navigate to InfoSlider page
     if (allGranted) {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('hasAccessedBefore', true); // Mark as accessed
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => InfoSlider()),
