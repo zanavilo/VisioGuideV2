@@ -35,7 +35,7 @@ dependencies:
   permission_handler: ^10.2.0 # Replace 'latest_version' with the actual latest version
   camera: ^0.10.0 # For camera
   vibration: ^1.9.0 # For vibration
-  http: ^0.13.5  # For making HTTP requests
+  http: ^1.2.2  # For making HTTP requests
   geolocator: ^9.0.2  # For getting user's location (if you want location-based weather)
   intl: ^0.18.0  # Check for the latest version on pub.dev
   battery_plus: ^6.0.3
@@ -45,6 +45,8 @@ dependencies:
   shared_preferences: ^2.0.0
   image_picker: ^0.8.5
   http_parser: ^4.0.2
+  image: ^4.3.0
+  typed_data: ^1.4.0
 
 # code for splash screen
 flutter_native_splash:
