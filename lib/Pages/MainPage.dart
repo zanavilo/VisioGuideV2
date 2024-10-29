@@ -94,7 +94,7 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
     } else if (command.contains('battery')) {
       Navigator.push(context, MaterialPageRoute(builder: (context) => BatteryStatus()));
     } else if (command.contains('read')) {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => CameraScreen()));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => ReadPage()));
     } else if (command.contains('object detection')) {
       Navigator.push(context, MaterialPageRoute(builder: (context) => ObjectDetectionPage()));
     } else if (command.contains('calculator')) {
@@ -192,7 +192,7 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
                       await _speak('Say ${options[index].title}: ${options[index].description}');
                       switch (options[index].title) {
                         case 'READ':
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => CameraScreen()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => ReadPage()));
                           break;
                         case 'OBJECT DETECTION':
                           Navigator.push(context, MaterialPageRoute(builder: (context) => ObjectDetectionPage()));

@@ -15,9 +15,9 @@
     },
     {
       "name": "args",
-      "rootUri": "file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/args-2.5.0",
+      "rootUri": "file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/args-2.6.0",
       "packageUri": "lib/",
-      "languageVersion": "3.0"
+      "languageVersion": "3.3"
     },
     {
       "name": "async",
@@ -27,7 +27,7 @@
     },
     {
       "name": "battery_plus",
-      "rootUri": "file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/battery_plus-6.0.3",
+      "rootUri": "file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/battery_plus-6.2.0",
       "packageUri": "lib/",
       "languageVersion": "3.3"
     },
@@ -57,9 +57,9 @@
     },
     {
       "name": "camera_avfoundation",
-      "rootUri": "file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/camera_avfoundation-0.9.17+3",
+      "rootUri": "file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/camera_avfoundation-0.9.17+4",
       "packageUri": "lib/",
-      "languageVersion": "3.2"
+      "languageVersion": "3.3"
     },
     {
       "name": "camera_platform_interface",
@@ -99,7 +99,7 @@
     },
     {
       "name": "crypto",
-      "rootUri": "file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/crypto-3.0.5",
+      "rootUri": "file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/crypto-3.0.6",
       "packageUri": "lib/",
       "languageVersion": "3.4"
     },
@@ -123,7 +123,7 @@
     },
     {
       "name": "device_info_plus",
-      "rootUri": "file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/device_info_plus-10.1.2",
+      "rootUri": "file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/device_info_plus-11.1.0",
       "packageUri": "lib/",
       "languageVersion": "3.3"
     },
@@ -153,7 +153,7 @@
     },
     {
       "name": "file",
-      "rootUri": "file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/file-7.0.0",
+      "rootUri": "file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/file-7.0.1",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
@@ -183,9 +183,9 @@
     },
     {
       "name": "fixnum",
-      "rootUri": "file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/fixnum-1.1.0",
+      "rootUri": "file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/fixnum-1.1.1",
       "packageUri": "lib/",
-      "languageVersion": "2.19"
+      "languageVersion": "3.1"
     },
     {
       "name": "flutter",
@@ -201,7 +201,7 @@
     },
     {
       "name": "flutter_native_splash",
-      "rootUri": "file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_native_splash-2.4.1",
+      "rootUri": "file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_native_splash-2.4.2",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
@@ -264,6 +264,90 @@
       "rootUri": "file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/geolocator_windows-0.1.3",
       "packageUri": "lib/",
       "languageVersion": "2.15"
+    },
+    {
+      "name": "google_ml_kit",
+      "rootUri": "file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/google_ml_kit-0.14.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
+      "name": "google_mlkit_barcode_scanning",
+      "rootUri": "file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/google_mlkit_barcode_scanning-0.6.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.16"
+    },
+    {
+      "name": "google_mlkit_commons",
+      "rootUri": "file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/google_mlkit_commons-0.3.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.16"
+    },
+    {
+      "name": "google_mlkit_digital_ink_recognition",
+      "rootUri": "file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/google_mlkit_digital_ink_recognition-0.7.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.16"
+    },
+    {
+      "name": "google_mlkit_entity_extraction",
+      "rootUri": "file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/google_mlkit_entity_extraction-0.7.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.16"
+    },
+    {
+      "name": "google_mlkit_face_detection",
+      "rootUri": "file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/google_mlkit_face_detection-0.6.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.16"
+    },
+    {
+      "name": "google_mlkit_image_labeling",
+      "rootUri": "file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/google_mlkit_image_labeling-0.6.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.16"
+    },
+    {
+      "name": "google_mlkit_language_id",
+      "rootUri": "file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/google_mlkit_language_id-0.6.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.16"
+    },
+    {
+      "name": "google_mlkit_object_detection",
+      "rootUri": "file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/google_mlkit_object_detection-0.7.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.16"
+    },
+    {
+      "name": "google_mlkit_pose_detection",
+      "rootUri": "file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/google_mlkit_pose_detection-0.6.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.16"
+    },
+    {
+      "name": "google_mlkit_selfie_segmentation",
+      "rootUri": "file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/google_mlkit_selfie_segmentation-0.3.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.16"
+    },
+    {
+      "name": "google_mlkit_smart_reply",
+      "rootUri": "file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/google_mlkit_smart_reply-0.6.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.16"
+    },
+    {
+      "name": "google_mlkit_text_recognition",
+      "rootUri": "file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/google_mlkit_text_recognition-0.6.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.16"
+    },
+    {
+      "name": "google_mlkit_translation",
+      "rootUri": "file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/google_mlkit_translation-0.6.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.16"
     },
     {
       "name": "html",
@@ -633,7 +717,7 @@
     },
     {
       "name": "vibration_platform_interface",
-      "rootUri": "file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/vibration_platform_interface-0.0.1",
+      "rootUri": "file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/vibration_platform_interface-0.0.2",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -651,7 +735,7 @@
     },
     {
       "name": "win32",
-      "rootUri": "file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/win32-5.5.5",
+      "rootUri": "file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/win32-5.7.2",
       "packageUri": "lib/",
       "languageVersion": "3.5"
     },
@@ -686,7 +770,7 @@
       "languageVersion": "3.5"
     }
   ],
-  "generated": "2024-10-27T13:05:52.879973Z",
+  "generated": "2024-10-29T07:10:54.765370Z",
   "generator": "pub",
   "generatorVersion": "3.5.3",
   "flutterRoot": "file:///C:/flutter/flutter_windows_3.24.3-stable/flutter",
