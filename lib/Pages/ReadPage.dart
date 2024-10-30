@@ -87,46 +87,56 @@ class _ReadPageState extends State<ReadPage> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onHorizontalDragEnd: (details) {
-        // Detect right swipe
         if (details.velocity.pixelsPerSecond.dx > 0) {
-          _speakReturnMessage(); // Speak return message before going back
-          Navigator.pop(context); // Navigate back to MainPage
+          _speakReturnMessage();
+          Navigator.pop(context);
         }
       },
       child: Scaffold(
         appBar: AppBar(
           title: Text('Read Text Using Camera'),
         ),
-        body: Column(
+        body: Stack(
           children: [
-            if (_isCameraInitialized)
-              Expanded(
-                flex: 7, // 70% of the screen
-                child: CameraPreview(_cameraController!),
+            // Background image
+            Positioned.fill(
+              child: Image(
+                image: AssetImage("assets/wpg.png"),
+                fit: BoxFit.cover,
               ),
-            Expanded(
-              flex: 3, // 30% of the screen
-              child: Center(
-                child: SizedBox(
-                  width: 330, // Width to make it vertically long
-                  height: 180, // Height to make it vertically long
-                  child: ElevatedButton(
-                    onPressed: _captureAndRecognizeText,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.lightBlueAccent, // Set button color to blue
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(40), // Circular edges
+            ),
+            Column(
+              children: [
+                if (_isCameraInitialized)
+                  Expanded(
+                    flex: 7, // 70% of the screen
+                    child: CameraPreview(_cameraController!),
+                  ),
+                Expanded(
+                  flex: 3, // 30% of the screen
+                  child: Center(
+                    child: SizedBox(
+                      width: 330, // Width to make it vertically long
+                      height: 180, // Height to make it vertically long
+                      child: ElevatedButton(
+                        onPressed: _captureAndRecognizeText,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.lightBlueAccent, // Set button color to blue
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(40), // Circular edges
+                          ),
+                          padding: EdgeInsets.all(20),
+                        ),
+                        child: Text(
+                          'Capture',
+                          style: TextStyle(fontSize: 18, color: Colors.white), // Set text color to white
+                          textAlign: TextAlign.center,
+                        ),
                       ),
-                      padding: EdgeInsets.all(20),
-                    ),
-                    child: Text(
-                      'Capture',
-                      style: TextStyle(fontSize: 18, color: Colors.white), // Set text color to white
-                      textAlign: TextAlign.center,
                     ),
                   ),
                 ),
-              ),
+              ],
             ),
           ],
         ),
