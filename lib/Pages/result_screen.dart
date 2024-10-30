@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart'; // Import TTS package
 import 'package:visioguide/Pages/MainPage.dart'; // Import your MainPage file
+import 'package:vibration/vibration.dart'; // Import vibration package
 
 class ResultScreen extends StatefulWidget {
   final String text;
@@ -59,6 +60,7 @@ class _ResultScreenState extends State<ResultScreen> {
       onHorizontalDragEnd: (details) async {
         // Detect right swipe
         if (details.velocity.pixelsPerSecond.dx > 0) {
+          await Vibration.vibrate(); // Vibrate on right swipe
           Navigator.pop(context); // Navigate back to the previous page
           await _speakRightSwipeMessage(); // Speak right swipe message after navigating back
         }
@@ -70,18 +72,41 @@ class _ResultScreenState extends State<ResultScreen> {
         }
       },
       child: Scaffold(
-        appBar: AppBar(
-          title: Text('Recognized Text'),
-        ),
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Text(
-              widget.text.isNotEmpty ? widget.text : 'No text recognized.',
-              style: TextStyle(fontSize: 18),
-              textAlign: TextAlign.justify,
+        body: Stack(
+          children: [
+            // Background image
+            Positioned.fill(
+              child: Image(
+                image: AssetImage("assets/wpg.png"),
+                fit: BoxFit.cover,
+              ),
             ),
-          ),
+            Center(
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.8, // 80% width of screen
+                height: MediaQuery.of(context).size.height * 0.6, // 60% height of screen
+                padding: const EdgeInsets.all(16.0),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20), // Rounded corners
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 10,
+                      offset: Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: SingleChildScrollView(
+                  child: Text(
+                    widget.text.isNotEmpty ? widget.text : 'No text recognized.',
+                    style: TextStyle(fontSize: 18),
+                    textAlign: TextAlign.justify,
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

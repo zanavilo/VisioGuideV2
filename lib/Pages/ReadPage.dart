@@ -20,8 +20,7 @@ class _ReadPageState extends State<ReadPage> {
   @override
   void initState() {
     super.initState();
-    _initializeCamera();
-    _speakWelcomeMessage(); // Call TTS method to speak welcome message
+    _initializeCamera(); // Initialize camera here
   }
 
   @override
@@ -42,6 +41,9 @@ class _ReadPageState extends State<ReadPage> {
     setState(() {
       _isCameraInitialized = true;
     });
+
+    // Call the welcome message after the camera is initialized
+    _speakWelcomeMessage(); // Speak welcome message after camera initialization
   }
 
   Future<void> _captureAndRecognizeText() async {
@@ -93,9 +95,6 @@ class _ReadPageState extends State<ReadPage> {
         }
       },
       child: Scaffold(
-        appBar: AppBar(
-          title: Text('Read Text Using Camera'),
-        ),
         body: Stack(
           children: [
             // Background image
@@ -109,11 +108,27 @@ class _ReadPageState extends State<ReadPage> {
               children: [
                 if (_isCameraInitialized)
                   Expanded(
-                    flex: 7, // 70% of the screen
-                    child: CameraPreview(_cameraController!),
+                    flex: 7, // 70% of the screen for the camera preview
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 30, left: 10, right: 10), // Adds 30px spacing at the top and 10px on sides
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20), // Apply 20px rounded corners
+                        child: Container(
+                          color: Colors.white, // White background color for the camera container
+                          padding: const EdgeInsets.all(5), // Adds 5px padding around the camera preview
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(15), // Inner ClipRRect to round camera preview
+                            child: AspectRatio(
+                              aspectRatio: _cameraController!.value.aspectRatio,
+                              child: CameraPreview(_cameraController!),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
                 Expanded(
-                  flex: 3, // 30% of the screen
+                  flex: 3, // 30% of the screen for the capture button
                   child: Center(
                     child: SizedBox(
                       width: 330, // Width to make it vertically long
@@ -129,8 +144,7 @@ class _ReadPageState extends State<ReadPage> {
                         ),
                         child: Text(
                           'Capture',
-                          style: TextStyle(fontSize: 18, color: Colors.white), // Set text color to white
-                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 24), // Adjust font size as needed
                         ),
                       ),
                     ),
