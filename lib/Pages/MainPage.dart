@@ -48,7 +48,7 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
 
   Future<void> _speakAllOptions() async {
     String allOptions = options
-        .map((option) => 'Say ${option.title} ${option.description}')
+        .map((option) => 'say ${option.title} ${option.description}')
         .join('. ');
     await _speak("Options available are: $allOptions");
   }
@@ -181,7 +181,7 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
                       height: 40,
                     ),
                     title: Text(
-                      'Say ${options[index].title}',
+                      ' ${options[index].title}',
                       style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                     ),
                     subtitle: Text(options[index].description),
@@ -189,7 +189,7 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
                       if (await Vibration.hasVibrator() ?? false) {
                         Vibration.vibrate(duration: 100);
                       }
-                      await _speak('Say ${options[index].title}: ${options[index].description}');
+                      await _speak(' ${options[index].title}: ${options[index].description}');
                       switch (options[index].title) {
                         case 'READ':
                           Navigator.push(context, MaterialPageRoute(builder: (context) => ReadPage()));

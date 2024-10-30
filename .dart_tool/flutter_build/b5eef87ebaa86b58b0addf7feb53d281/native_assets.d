@@ -1,0 +1,1 @@
+ C:\\Users\\mocel\\MyCodes\\VisioGuideV2\\.dart_tool\\flutter_build\\b5eef87ebaa86b58b0addf7feb53d281\\native_assets.yaml: 
