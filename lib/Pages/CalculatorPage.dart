@@ -15,7 +15,27 @@ class VoiceCalculatorApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: CalculatorPage(),
+      home: MainPage(), // Set MainPage as the initial home page
+    );
+  }
+}
+
+class MainPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            // Navigate to the calculator page
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => CalculatorPage()),
+            );
+          },
+          child: Text('Go to Voice Calculator'),
+        ),
+      ),
     );
   }
 }
@@ -31,6 +51,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
   bool _isListening = false; // To track if it's listening
   String _resultText = 'Tap the button below to start solving a math problem.'; // Default text
   String _spokenText = ''; // Store recognized text
+  late Future<void> _timeoutFuture; // Future for the timeout
 
   @override
   void initState() {
@@ -63,11 +84,23 @@ class _CalculatorPageState extends State<CalculatorPage> {
           _isListening = true;
           _resultText = 'Listening...'; // Update UI to show that it's listening
         });
+        _timeoutFuture = Future.delayed(Duration(seconds: 6), _resetListeningState); // Set a timeout of 6 seconds
         _speech.listen(
           onResult: (val) => _processResult(val.recognizedWords),
           listenFor: Duration(seconds: 5), // Set listening duration to 5 seconds
         );
       }
+    }
+  }
+
+  // Reset the listening state if no input is received within the timeout
+  void _resetListeningState() {
+    if (_isListening) {
+      setState(() {
+        _isListening = false;
+        _resultText = 'Tap the button below to start solving a math problem.'; // Reset the text
+      });
+      _speakDefaultText(); // Speak the reset message
     }
   }
 
@@ -77,6 +110,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
       _isListening = false;
       _spokenText = spokenText; // Store the spoken math problem
     });
+    _timeoutFuture = Future.value(); // Cancel the timeout
     _calculateAndSpeak(spokenText); // Calculate and speak the result
   }
 
@@ -84,10 +118,10 @@ class _CalculatorPageState extends State<CalculatorPage> {
   Future<void> _calculateAndSpeak(String spokenText) async {
     try {
       final result = _evaluateExpression(spokenText).round(); // Round the result to the nearest integer
-      await _flutterTts.speak('The result is $result'); // Speak the result
       setState(() {
         _resultText = 'Result: $result'; // Display the rounded result
       });
+      await _flutterTts.speak('The result is $result'); // Speak the result without delay
     } catch (e) {
       print(e); // Print error for debugging
       setState(() {
@@ -139,43 +173,83 @@ class _CalculatorPageState extends State<CalculatorPage> {
   // Handle swipe gesture
   void _onSwipeRight() async {
     await _flutterTts.speak("You are at the main page swipe left to read all the options");
+    // Optionally, you can also navigate back to the MainPage if desired
+    // Navigator.pushReplacement(
+    //   context,
+    //   MaterialPageRoute(builder: (context) => MainPage()),
+    // );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Voice Command Calculator'),
-      ),
       body: GestureDetector(
         onHorizontalDragEnd: (details) {
           if (details.velocity.pixelsPerSecond.dx > 0) {
             _onSwipeRight(); // Trigger swipe right action
+            // You may also want to navigate back to the main page
+            Navigator.pop(context); // Navigate back to MainPage
           }
         },
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: Center(
-                child: Text(
-                  _resultText,
-                  style: TextStyle(fontSize: 24),
-                  textAlign: TextAlign.center,
+        child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/wpg.png'), // Background image
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Center(
+                  child: Container(
+                    padding: EdgeInsets.all(16), // Add some padding
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.9), // Set background color to white with some opacity
+                      borderRadius: BorderRadius.circular(15), // Set border radius
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black26,
+                          blurRadius: 10.0,
+                          offset: Offset(0, 4),
+                        ),
+                      ],
+                    ),
+                    child: Text(
+                      _resultText,
+                      style: TextStyle(fontSize: 24, color: Colors.black), // Change text color to black for contrast
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
                 ),
               ),
-            ),
-            Container(
-              height: MediaQuery.of(context).size.height * 0.3, // Button container height (30% of screen)
-              child: ElevatedButton(
-                onPressed: () async {
-                  await Vibration.vibrate(); // Vibration on button tap
-                  _startListening(); // Start listening when button is pressed
-                },
-                child: Text('Start Voice Command'),
+              Container(
+                height: MediaQuery.of(context).size.height * 0.3, // Button container height (30% of screen)
+                margin: EdgeInsets.symmetric(horizontal: 40.0, vertical: 10.0),
+                child: ElevatedButton(
+                  onPressed: () async {
+                    await Vibration.vibrate(); // Vibration on button tap
+                    _startListening(); // Start listening when button is pressed
+                  },
+                  child: Center( // Center the text within the button
+                    child: Text(
+                      'Start Voice Command',
+                      textAlign: TextAlign.center, // Align the text to the center
+                      style: TextStyle(fontSize: 20), // Optional: Adjust font size if needed
+                    ),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15), // Adjust padding to reduce width
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0), // Set rounded corners
+                    ),
+                    alignment: Alignment.center, // Ensure the button's child is centered
+                  ),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
