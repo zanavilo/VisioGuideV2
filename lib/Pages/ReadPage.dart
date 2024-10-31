@@ -70,7 +70,7 @@ class _ReadPageState extends State<ReadPage> {
   }
 
   Future<void> _speakWelcomeMessage() async {
-    String welcomeMessage = 'Click the bottom button to capture.'; // The message to be spoken
+    String welcomeMessage = 'Click the button below to capture.'; // The message to be spoken
     await flutterTts.setLanguage("en-US");
     await flutterTts.setPitch(1.0);
     await flutterTts.setSpeechRate(0.5); // Adjust speech rate as needed

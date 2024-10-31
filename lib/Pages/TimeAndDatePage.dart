@@ -63,9 +63,16 @@ class _TimeAndDatePageState extends State<TimeAndDatePage> {
             ),
           ),
           child: Center(
-            child: Text(
-              formattedDate,
-              style: TextStyle(fontSize: 24, color: Colors.white), // Change text color for visibility
+            child: Container(
+              padding: EdgeInsets.all(16.0), // Padding inside the container
+              decoration: BoxDecoration(
+                color: Colors.white, // White background
+                borderRadius: BorderRadius.circular(20), // 20px border radius
+              ),
+              child: Text(
+                formattedDate,
+                style: TextStyle(fontSize: 24, color: Colors.black), // Change text color for visibility
+              ),
             ),
           ),
         ),

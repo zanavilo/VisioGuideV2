@@ -51,6 +51,8 @@ dependencies:
 
 
 
+
+
 # code for splash screen
 flutter_native_splash:
   color: "#000000"   # Your splash screen background color
