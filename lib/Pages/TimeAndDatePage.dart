@@ -69,22 +69,22 @@ class _TimeAndDatePageState extends State<TimeAndDatePage> {
         body: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [Colors.blueAccent, Colors.lightBlueAccent],
+              colors: [Colors.deepPurpleAccent, Colors.purpleAccent],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
             ),
           ),
           child: Center(
             child: Container(
-              width: MediaQuery.of(context).size.width - 20, // Decrease width by 10px on each side
+              width: MediaQuery.of(context).size.width * 0.9,
               padding: EdgeInsets.all(24.0),
               decoration: BoxDecoration(
-                color: Colors.black,
+                color: Colors.white.withOpacity(0.9),
                 borderRadius: BorderRadius.circular(25),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.2),
-                    blurRadius: 15,
+                    color: Colors.black.withOpacity(0.1),
+                    blurRadius: 20,
                     spreadRadius: 5,
                     offset: Offset(0, 10),
                   ),
@@ -102,25 +102,25 @@ class _TimeAndDatePageState extends State<TimeAndDatePage> {
                         height: 100,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          border: Border.all(color: Colors.green, width: 4), // Clock face border color
+                          border: Border.all(color: Colors.deepPurple, width: 6), // Clock face border color
                         ),
                       ),
                       // Center circle for hands to start
                       Container(
-                        width: 12, // Size of the center circle
+                        width: 12,
                         height: 12,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Colors.green, // Center circle color
+                          color: Colors.deepPurple, // Center circle color
                         ),
                       ),
                       // Hour hand
                       Transform.rotate(
                         angle: getHourRotation(),
                         child: Container(
-                          width: 6, // Width of the hour hand
+                          width: 8, // Width of the hour hand
                           height: 30, // Height of the hour hand
-                          color: Colors.green, // Hour hand color
+                          color: Colors.deepPurple, // Hour hand color
                           alignment: Alignment.bottomCenter,
                           margin: EdgeInsets.only(bottom: 20), // Starts from center circle
                         ),
@@ -129,32 +129,33 @@ class _TimeAndDatePageState extends State<TimeAndDatePage> {
                       Transform.rotate(
                         angle: getMinuteRotation(),
                         child: Container(
-                          width: 4, // Width of the minute hand
+                          width: 6, // Width of the minute hand
                           height: 40, // Height of the minute hand
-                          color: Colors.green, // Minute hand color
+                          color: Colors.deepPurple, // Minute hand color
                           alignment: Alignment.bottomCenter,
                           margin: EdgeInsets.only(bottom: 30), // Starts from center circle
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(height: 10),
+                  SizedBox(height: 20),
                   Text(
                     formattedDate,
                     style: GoogleFonts.robotoMono(
-                      fontSize: 26,
-                      color: Colors.greenAccent,
-                      letterSpacing: 0.5,
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.deepPurple,
+                      letterSpacing: 1.0,
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(height: 10),
+                  SizedBox(height: 20),
                   ElevatedButton.icon(
                     onPressed: _updateTime,
-                    icon: Icon(Icons.refresh, color: Colors.black), // Refresh icon color
-                    label: Text("Refresh Time"),
+                    icon: Icon(Icons.refresh, color: Colors.white), // Refresh icon color
+                    label: Text("Refresh Time", style: TextStyle(color: Colors.white)), // Button text color
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.greenAccent,
+                      backgroundColor: Colors.deepPurple,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(18.0),
                       ),
@@ -173,5 +174,6 @@ class _TimeAndDatePageState extends State<TimeAndDatePage> {
 void main() {
   runApp(MaterialApp(
     home: TimeAndDatePage(),
+    debugShowCheckedModeBanner: false, // Disable debug banner
   ));
 }
