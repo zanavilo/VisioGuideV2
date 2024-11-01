@@ -104,24 +104,19 @@ class _EmergencyCallPageState extends State<EmergencyCallPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.blueAccent, // Set the background color of the Scaffold
       body: GestureDetector(
         onHorizontalDragEnd: (details) {
-          print("Swipe detected with velocity: ${details.velocity.pixelsPerSecond.dx}");
           if (details.velocity.pixelsPerSecond.dx > 0) {
             _navigateToMainPage();
           }
         },
-        child: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("assets/wpg.png"),
-              fit: BoxFit.cover,
-            ),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.fromLTRB(16.0, 150.0, 16.0, 16.0), // Set top padding to 150
+          child: Container(
+            color: Colors.transparent, // Make the container background transparent
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisSize: MainAxisSize.min, // Use MainAxisSize.min to fit the content
               children: [
                 if (_savedPhoneNumber != null)
                   Dismissible(
@@ -134,10 +129,17 @@ class _EmergencyCallPageState extends State<EmergencyCallPage> {
                       }
                       _makeCall();
                     },
-                    child: ListTile(
-                      title: Text(
-                        'Saved Phone Number: $_savedPhoneNumber',
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    child: Card(
+                      elevation: 5,
+                      color: Colors.transparent, // Set Card background color to transparent
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: ListTile(
+                        title: Text(
+                          'Saved Phone Number: $_savedPhoneNumber',
+                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white), // Change text color to white
+                        ),
                       ),
                     ),
                   ),
@@ -147,6 +149,8 @@ class _EmergencyCallPageState extends State<EmergencyCallPage> {
                   decoration: InputDecoration(
                     labelText: "Enter Phone Number",
                     border: OutlineInputBorder(),
+                    filled: true,
+                    fillColor: Colors.white,
                   ),
                   keyboardType: TextInputType.phone,
                 ),
@@ -154,8 +158,15 @@ class _EmergencyCallPageState extends State<EmergencyCallPage> {
                 ElevatedButton(
                   onPressed: _savePhoneNumber,
                   child: Text("Save Phone Number"),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue, // Keep this button blue
+                    padding: EdgeInsets.symmetric(vertical: 20),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                  ),
                 ),
-                Spacer(),
+                SizedBox(height: 20),
                 Container(
                   height: MediaQuery.of(context).size.height * 0.3,
                   margin: EdgeInsets.symmetric(horizontal: 40.0, vertical: 10.0),
@@ -172,6 +183,7 @@ class _EmergencyCallPageState extends State<EmergencyCallPage> {
                       ),
                     ),
                     style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.redAccent, // Keep this button red
                       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30.0),
@@ -184,14 +196,18 @@ class _EmergencyCallPageState extends State<EmergencyCallPage> {
                 if (_isCalling) ...[
                   Text(
                     "Calling $_savedPhoneNumber...",
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white), // Change text color to white
                   ),
                   SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: _endCall,
                     child: Text("End Call"),
                     style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green,
                       padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                      ),
                     ),
                   ),
                 ],
@@ -207,5 +223,6 @@ class _EmergencyCallPageState extends State<EmergencyCallPage> {
 void main() {
   runApp(MaterialApp(
     home: EmergencyCallPage(),
+    debugShowCheckedModeBanner: false,
   ));
 }
