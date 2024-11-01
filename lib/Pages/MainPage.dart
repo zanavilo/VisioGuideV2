@@ -1,16 +1,19 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:vibration/vibration.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'ReadPage.dart';
 import 'ObjectDetectionPage.dart';
 import 'CalculatorPage.dart';
 import 'WeatherPage.dart';
 import 'BatteryStatus.dart';
 import 'TimeAndDatePage.dart';
-import 'CameraScreen.dart';
+import 'EmergencyCallPage.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -22,7 +25,9 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
   late stt.SpeechToText _speech;
   bool _isListening = false;
   bool _isSpeaking = false;
-  Offset _dragStart = Offset.zero; // Track the starting position of the swipe
+  Offset _dragStart = Offset.zero;
+  String? _savedPhoneNumber;
+  bool _isOnMainPage = true; // Track if we are on MainPage
 
   final List<Option> options = [
     Option('READ', 'to read text using the camera', 'assets/read.png'),
@@ -31,8 +36,10 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
     Option('WEATHER', 'to get weather details', 'assets/weather.png'),
     Option('BATTERY', 'to check battery percentage', 'assets/batt.png'),
     Option('TIME AND DATE', 'to check the current time and date', 'assets/tnd.png'),
-    Option('BACK', 'return to the home screen', 'assets/back.png'),
+    Option('EMERGENCY CALL', 'to call someone immediately', 'assets/emergency-call.png'),
     Option('EXIT', 'to close the application', 'assets/exit.png'),
+    Option('SWIPE LEFT', 'to read all the options', 'assets/back.png'),
+    Option('SWIPE RIGHT', 'to activate the voice command', 'assets/back.png'),
   ];
 
   Future<void> _speak(String text) async {
@@ -47,10 +54,15 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
   }
 
   Future<void> _speakAllOptions() async {
-    String allOptions = options
-        .map((option) => 'say ${option.title} ${option.description}')
-        .join('. ');
-    await _speak("Options available are: $allOptions");
+    String optionsText = options.where((option) => option.title != 'SWIPE LEFT' && option.title != 'SWIPE RIGHT').map((option) {
+      return "Say ${option.title}. ${option.description}";
+    }).join('. ');
+
+    // Add custom descriptions for "Swipe Left" and "Swipe Right"
+    String swipeLeftText = "Swipe Left to read all options.";
+    String swipeRightText = "Swipe Right to activate voice command.";
+
+    await _speak("Here are the options: $optionsText. $swipeLeftText. $swipeRightText.");
   }
 
   Future<void> _stopSpeaking() async {
@@ -59,7 +71,7 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
   }
 
   Future<void> _startListening() async {
-    await _stopSpeaking(); // Stop TTS if it's speaking
+    await _stopSpeaking();
     _speech = stt.SpeechToText();
     bool available = await _speech.initialize();
     if (available) {
@@ -73,7 +85,6 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
         },
       );
 
-      // Set a timeout to stop listening if no command is detected
       Timer(Duration(seconds: 5), () {
         if (_isListening) {
           _stopListening();
@@ -87,33 +98,57 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
     setState(() => _isListening = false);
   }
 
-  void _handleCommand(String command) {
+  Future<void> _loadSavedPhoneNumber() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _savedPhoneNumber = prefs.getString('savedPhoneNumber');
+    });
+  }
+
+  void _handleCommand(String command) async {
     command = command.toLowerCase();
     if (command.contains('weather')) {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => WeatherPage()));
+      _navigateToPage(WeatherPage());
     } else if (command.contains('battery')) {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => BatteryStatus()));
+      _navigateToPage(BatteryStatus());
+    } else if (command.contains('emergency call')) {
+      _navigateToPage(EmergencyCallPage());
     } else if (command.contains('read')) {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => ReadPage()));
+      _navigateToPage(ReadPage());
     } else if (command.contains('object detection')) {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => ObjectDetectionPage()));
+      _navigateToPage(ObjectDetectionPage());
     } else if (command.contains('calculator')) {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => CalculatorPage()));
+      _navigateToPage(CalculatorPage());
     } else if (command.contains('time') || command.contains('date')) {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => TimeAndDatePage()));
-    } else if (command.contains('back')) {
-      Navigator.pop(context);
+      _navigateToPage(TimeAndDatePage());
     } else if (command.contains('exit')) {
-      SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+      await _speak("The application is about to close."); // Speak before closing
+      Future.delayed(Duration(seconds: 4), () {
+        SystemChannels.platform.invokeMethod('SystemNavigator.pop'); // Close the app
+      });
     } else {
       _speak("Sorry, I didn't understand the command.");
     }
+  }
+
+  void _navigateToPage(Widget page) {
+    setState(() {
+      _isOnMainPage = false; // We are navigating away from MainPage
+    });
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return page;
+    })).then((_) {
+      setState(() {
+        _isOnMainPage = true; // We are back on MainPage
+      });
+    });
   }
 
   @override
   void initState() {
     super.initState();
     _speakAllOptions();
+    _loadSavedPhoneNumber();
     WidgetsBinding.instance.addObserver(this);
   }
 
@@ -126,7 +161,9 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
-      _speakAllOptions();
+      if (_isOnMainPage) {
+        _speakAllOptions();
+      }
     }
   }
 
@@ -139,22 +176,21 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
       ),
       body: GestureDetector(
         onHorizontalDragStart: (details) {
-          _dragStart = details.globalPosition; // Track the starting position
+          _dragStart = details.globalPosition;
         },
         onHorizontalDragEnd: (details) async {
           final dragEnd = details.velocity.pixelsPerSecond;
           final dragDifference = _dragStart.dx - dragEnd.dx;
 
           if (dragDifference.abs() > 100) {
-            // Check if swipe is primarily horizontal
             if (dragEnd.dy.abs() < dragEnd.dx.abs()) {
-              if (dragEnd.dx > 0) { // Right swipe
+              if (dragEnd.dx < 0) { // Left swipe
+                _speakAllOptions(); // Speak all options
+              } else { // Right swipe
                 if (await Vibration.hasVibrator() ?? false) {
                   Vibration.vibrate(duration: 100);
                 }
-                _startListening();
-              } else { // Left swipe
-                _speakAllOptions();
+                _startListening(); // Start listening for voice commands
               }
             }
           }
@@ -175,49 +211,48 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
                 return Card(
                   margin: const EdgeInsets.all(10),
                   child: ListTile(
-                    leading: Image.asset(
+                    leading: options[index].title == 'SWIPE RIGHT'
+                        ? Transform(
+                      alignment: Alignment.center,
+                      transform: Matrix4.rotationY(3.14159),
+                      child: Image.asset(
+                        options[index].iconPath,
+                        width: 40,
+                        height: 40,
+                      ),
+                    )
+                        : Image.asset(
                       options[index].iconPath,
                       width: 40,
                       height: 40,
                     ),
                     title: Text(
-                      ' ${options[index].title}',
-                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                      options[index].title, // Only the title is displayed here
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    subtitle: Text(options[index].description),
+                    subtitle: Text(options[index].description), // Description below the title
                     onTap: () async {
-                      if (await Vibration.hasVibrator() ?? false) {
-                        Vibration.vibrate(duration: 100);
+                      // Handle tap for navigation
+                      if (options[index].title == 'READ') {
+                        _navigateToPage(ReadPage());
+                      } else if (options[index].title == 'OBJECT DETECTION') {
+                        _navigateToPage(ObjectDetectionPage());
+                      } else if (options[index].title == 'EMERGENCY CALL') {
+                        _navigateToPage(EmergencyCallPage());
+                      } else if (options[index].title == 'CALCULATOR') {
+                        _navigateToPage(CalculatorPage());
+                      } else if (options[index].title == 'WEATHER') {
+                        _navigateToPage(WeatherPage());
+                      } else if (options[index].title == 'BATTERY') {
+                        _navigateToPage(BatteryStatus());
+                      } else if (options[index].title == 'TIME AND DATE') {
+                        _navigateToPage(TimeAndDatePage());
+                      } else if (options[index].title == 'EXIT') {
+                        await _speak("The application is about to close."); // Speak before closing
+                        Future.delayed(Duration(seconds: 2), () {
+                          SystemChannels.platform.invokeMethod('SystemNavigator.pop'); // Close the app
+                        });
                       }
-                      await _speak(' ${options[index].title}: ${options[index].description}');
-                      switch (options[index].title) {
-                        case 'READ':
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => ReadPage()));
-                          break;
-                        case 'OBJECT DETECTION':
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => ObjectDetectionPage()));
-                          break;
-                        case 'CALCULATOR':
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => CalculatorPage()));
-                          break;
-                        case 'WEATHER':
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => WeatherPage()));
-                          break;
-                        case 'BATTERY':
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => BatteryStatus()));
-                          break;
-                        case 'TIME AND DATE':
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => TimeAndDatePage()));
-                          break;
-                      }
-                    },
-                    onLongPress: () async {
-                      if (await Vibration.hasVibrator() ?? false) {
-                        Vibration.vibrate(duration: 200);
-                      }
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Haptic feedback activated for ${options[index].title}')),
-                      );
                     },
                   ),
                 );

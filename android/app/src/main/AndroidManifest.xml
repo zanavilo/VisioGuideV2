@@ -16,6 +16,8 @@
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <!-- Vibrate permission -->
     <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- Call permission-->
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <queries>
         <intent>
