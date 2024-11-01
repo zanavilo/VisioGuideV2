@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:visioguide/Pages/InfoSlider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:visioguide/Pages/MainPage.dart'; // Import MainPage
 
 class AllowAccess extends StatefulWidget {
   const AllowAccess({Key? key}) : super(key: key);
@@ -12,7 +13,6 @@ class AllowAccess extends StatefulWidget {
 
 class _AllowAccessState extends State<AllowAccess> {
   bool _isRequestingPermissions = false;
-  bool _hasAccessedBefore = false;
 
   @override
   void initState() {
@@ -26,16 +26,11 @@ class _AllowAccessState extends State<AllowAccess> {
     bool accessedBefore = prefs.getBool('hasAccessedBefore') ?? false;
 
     if (accessedBefore) {
-      // Navigate to InfoSlider if already accessed
+      // Navigate to MainPage directly if already accessed
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => InfoSlider()),
+        MaterialPageRoute(builder: (context) => MainPage()),
       );
-    } else {
-      // User is new; set the flag to true
-      setState(() {
-        _hasAccessedBefore = false;
-      });
     }
   }
 
@@ -49,8 +44,8 @@ class _AllowAccessState extends State<AllowAccess> {
     Map<Permission, PermissionStatus> statuses = await [
       Permission.microphone,
       Permission.camera,
-      Permission.location,           // Fine location
-      Permission.locationWhenInUse,  // Coarse location
+      Permission.location,
+      Permission.locationWhenInUse,
     ].request();
 
     // Check if all permissions are granted
@@ -81,37 +76,36 @@ class _AllowAccessState extends State<AllowAccess> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Allow access', style: TextStyle(color: Colors.white)),
-        backgroundColor: Colors.blue, // Set AppBar background to blue
+        backgroundColor: Colors.blue,
       ),
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/wpg.png'), // Background image
-            fit: BoxFit.cover, // Cover the whole screen
+            image: AssetImage('assets/wpg.png'),
+            fit: BoxFit.cover,
           ),
         ),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              // Camera icon with blue background
               Container(
-                width: 150, // Adjust size as needed
+                width: 150,
                 height: 150,
                 decoration: BoxDecoration(
-                  color: Colors.blue, // Blue background for the icon
+                  color: Colors.blue,
                   shape: BoxShape.circle,
                 ),
                 child: const Icon(
                   Icons.camera,
-                  size: 80.0, // Adjust icon size as needed
-                  color: Colors.white, // Set icon color to white
+                  size: 80.0,
+                  color: Colors.white,
                 ),
               ),
               const SizedBox(height: 30.0),
               const Text(
                 'Microphone and Camera',
-                style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold, color: Colors.white), // Change text color to white
+                style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold, color: Colors.white),
               ),
               const SizedBox(height: 10.0),
               const Padding(
@@ -119,19 +113,17 @@ class _AllowAccessState extends State<AllowAccess> {
                 child: Text(
                   'To make video calls, give access to your microphone and camera.',
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 16.0, color: Colors.white), // Change text color to white
+                  style: TextStyle(fontSize: 16.0, color: Colors.white),
                 ),
               ),
-              const SizedBox(height: 40.0), // Increase spacing
-
-              // Shortened button using SizedBox
+              const SizedBox(height: 40.0),
               SizedBox(
-                width: 200,  // Set the desired width for the button
+                width: 200,
                 child: ElevatedButton(
                   onPressed: _isRequestingPermissions ? null : () => _requestPermissions(),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
-                    padding: const EdgeInsets.symmetric(vertical: 15.0), // Adjust button height if needed
+                    padding: const EdgeInsets.symmetric(vertical: 15.0),
                   ),
                   child: _isRequestingPermissions
                       ? const CircularProgressIndicator(color: Colors.white)

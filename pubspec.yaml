@@ -111,6 +111,7 @@ flutter:
     - assets/battery_low.png
     - assets/color-picker.png
     - assets/emergency-call.png
+    - assets/blind.png
 
   #   - images/a_dot_ham.jpeg
 
