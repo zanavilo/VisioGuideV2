@@ -62,14 +62,14 @@ class _TimeAndDatePageState extends State<TimeAndDatePage> {
           _speakReturnMessage();
           Navigator.pop(context);
         } else if (details.velocity.pixelsPerSecond.dx < 0) {
-          _speakTime(formattedDate);
+          _updateTime(); // Call _updateTime on swipe left
         }
       },
       child: Scaffold(
         body: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [Colors.deepPurpleAccent, Colors.purpleAccent],
+              colors: [Colors.blue, Colors.lightBlue], // Updated gradient to blue and light blue
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
             ),
@@ -102,7 +102,7 @@ class _TimeAndDatePageState extends State<TimeAndDatePage> {
                         height: 100,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          border: Border.all(color: Colors.deepPurple, width: 6), // Clock face border color
+                          border: Border.all(color: Colors.blue, width: 6), // Clock face border color
                         ),
                       ),
                       // Center circle for hands to start
@@ -111,7 +111,7 @@ class _TimeAndDatePageState extends State<TimeAndDatePage> {
                         height: 12,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Colors.deepPurple, // Center circle color
+                          color: Colors.blue, // Center circle color
                         ),
                       ),
                       // Hour hand
@@ -120,7 +120,7 @@ class _TimeAndDatePageState extends State<TimeAndDatePage> {
                         child: Container(
                           width: 8, // Width of the hour hand
                           height: 30, // Height of the hour hand
-                          color: Colors.deepPurple, // Hour hand color
+                          color: Colors.blue, // Hour hand color
                           alignment: Alignment.bottomCenter,
                           margin: EdgeInsets.only(bottom: 20), // Starts from center circle
                         ),
@@ -131,7 +131,7 @@ class _TimeAndDatePageState extends State<TimeAndDatePage> {
                         child: Container(
                           width: 6, // Width of the minute hand
                           height: 40, // Height of the minute hand
-                          color: Colors.deepPurple, // Minute hand color
+                          color: Colors.blue, // Minute hand color
                           alignment: Alignment.bottomCenter,
                           margin: EdgeInsets.only(bottom: 30), // Starts from center circle
                         ),
@@ -144,7 +144,7 @@ class _TimeAndDatePageState extends State<TimeAndDatePage> {
                     style: GoogleFonts.robotoMono(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
-                      color: Colors.deepPurple,
+                      color: Colors.blue, // Updated text color
                       letterSpacing: 1.0,
                     ),
                     textAlign: TextAlign.center,
@@ -155,7 +155,7 @@ class _TimeAndDatePageState extends State<TimeAndDatePage> {
                     icon: Icon(Icons.refresh, color: Colors.white), // Refresh icon color
                     label: Text("Refresh Time", style: TextStyle(color: Colors.white)), // Button text color
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.deepPurple,
+                      backgroundColor: Colors.blue, // Button background color
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(18.0),
                       ),

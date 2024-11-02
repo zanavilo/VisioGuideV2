@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:vibration/vibration.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
@@ -58,7 +57,6 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
       return "Say ${option.title}. ${option.description}";
     }).join('. ');
 
-    // Add custom descriptions for "Swipe Left" and "Swipe Right"
     String swipeLeftText = "Swipe Left to read all options.";
     String swipeRightText = "Swipe Right to activate voice command.";
 
@@ -227,12 +225,11 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
                       height: 40,
                     ),
                     title: Text(
-                      options[index].title, // Only the title is displayed here
+                      options[index].title,
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    subtitle: Text(options[index].description), // Description below the title
+                    subtitle: Text(options[index].description),
                     onTap: () async {
-                      // Handle tap for navigation
                       if (options[index].title == 'READ') {
                         _navigateToPage(ReadPage());
                       } else if (options[index].title == 'OBJECT DETECTION') {
@@ -248,7 +245,7 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
                       } else if (options[index].title == 'TIME AND DATE') {
                         _navigateToPage(TimeAndDatePage());
                       } else if (options[index].title == 'EXIT') {
-                        await _speak("The application is about to close."); // Speak before closing
+                        await _speak("The application is about to close.");
                         Future.delayed(Duration(seconds: 2), () {
                           SystemChannels.platform.invokeMethod('SystemNavigator.pop'); // Close the app
                         });
