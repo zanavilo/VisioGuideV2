@@ -238,20 +238,26 @@ class _ObjectDetectionPageState extends State<ObjectDetectionPage> {
                   ),
 
                   // Capture Button
+                  // Capture Button with dimensions similar to ReadPage
                   Container(
-                    height: buttonHeight - 5, // Decrease height by 5 pixels
-                    margin: EdgeInsets.symmetric(horizontal: 40.0, vertical: 10.0),
+                    width: 330,  // Set the width for ReadPage size
+                    height: 180,  // Set the height for ReadPage size
+                    margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
                     child: ElevatedButton(
                       onPressed: _isLoading ? null : _captureImage,
-                      child: Text(_isLoading ? 'Analyzing...' : 'Capture Image'),
+                      child: Text(
+                        _isLoading ? 'Analyzing...' : 'Capture Image',
+                        style: TextStyle(fontSize: 24),
+                      ),
                       style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.symmetric(horizontal: 90, vertical: 15), // Adjust horizontal padding
+                        padding: EdgeInsets.all(20), // Padding for visual structure
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30.0),
                         ),
                       ),
                     ),
                   ),
+
                 ],
               );
             },

@@ -131,12 +131,12 @@ class _ReadPageState extends State<ReadPage> {
                   flex: 3, // 30% of the screen for the capture button
                   child: Center(
                     child: SizedBox(
-                      width: 330, // Width to make it vertically long
-                      height: 180, // Height to make it vertically long
+                        width: 330, // Width to make it vertically long
+                        height: 180, // Height to make it vertically long
                       child: ElevatedButton(
                         onPressed: _captureAndRecognizeText,
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.lightBlueAccent, // Set button color to blue
+                          backgroundColor: Colors.white, // Set button color to blue
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(40), // Circular edges
                           ),
