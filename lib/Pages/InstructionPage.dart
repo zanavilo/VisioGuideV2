@@ -29,19 +29,44 @@ class _InstructionPageState extends State<InstructionPage> {
             "Now that you know the basic functions of Visio-Guide, just swipe right to return to the main page.");
   }
 
+  // Speak return message when navigating back
+  Future<void> _speakReturnMessage() async {
+    String returnMessage = 'You are at the main page. Swipe left to read all the options.';
+    await flutterTts.setLanguage("en-US");
+    await flutterTts.setPitch(1.0);
+    await flutterTts.setSpeechRate(0.5);
+    await flutterTts.speak(returnMessage);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueGrey[50], // Light background color
-      body: Center( // Center the content vertically and horizontally
-        child: SingleChildScrollView( // Use SingleChildScrollView to make it scrollable if needed
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center, // Center the column vertically
-            children: <Widget>[
-              _buildInstructionItem('SWIPE LEFT', 'to repeat all the options', 'assets/back.png'),
-              _buildInstructionItem('SWIPE RIGHT', 'to activate voice command', 'assets/back.png', flip: true),
-              _buildInstructionItem('EXIT', 'to close the application', 'assets/exit.png', isExit: true),
-            ],
+      body: GestureDetector(
+        onHorizontalDragEnd: (details) {
+          // Detect right swipe
+          if (details.velocity.pixelsPerSecond.dx > 0) {
+            _speakReturnMessage(); // Speak return message before going back
+            Navigator.pop(context); // Navigate back to MainPage
+          }
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/wpg.png'), // Background image
+              fit: BoxFit.cover, // Make the image cover the whole container
+            ),
+          ),
+          child: Center( // Center the content vertically and horizontally
+            child: SingleChildScrollView( // Use SingleChildScrollView to make it scrollable if needed
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center, // Center the column vertically
+                children: <Widget>[
+                  _buildInstructionItem('SWIPE LEFT', 'to repeat all the options', 'assets/back.png'),
+                  _buildInstructionItem('SWIPE RIGHT', 'to activate voice command', 'assets/back.png', flip: true),
+                  _buildInstructionItem('EXIT', 'to close the application', 'assets/exit.png', isExit: true),
+                ],
+              ),
+            ),
           ),
         ),
       ),
@@ -90,4 +115,10 @@ class _InstructionPageState extends State<InstructionPage> {
       ),
     );
   }
+}
+
+void main() {
+  runApp(MaterialApp(
+    home: InstructionPage(),
+  ));
 }
