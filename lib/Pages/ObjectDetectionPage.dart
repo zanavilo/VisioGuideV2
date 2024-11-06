@@ -18,7 +18,7 @@ class _ObjectDetectionPageState extends State<ObjectDetectionPage> {
   String _result = 'Detection Result:';
   bool _isLoading = false;
   final FlutterTts _flutterTts = FlutterTts(); // TTS instance
-  String welcomeMessage = 'Click the button below to capture.'; // Welcome message
+  String welcomeMessage = 'Click the button below to capture, or swipe right to go to the main page.'; // Welcome message
 
   @override
   void initState() {

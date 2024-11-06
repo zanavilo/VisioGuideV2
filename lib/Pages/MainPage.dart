@@ -12,13 +12,14 @@ import 'CalculatorPage.dart';
 import 'WeatherPage.dart';
 import 'BatteryStatus.dart';
 import 'TimeAndDatePage.dart';
-import 'EmergencyCallPage.dart';
+import 'InstructionPage.dart'; // Import InstructionPage
 
 class MainPage extends StatefulWidget {
   @override
   _MainPageState createState() => _MainPageState();
 }
 
+  // VARIABLES AND FEATURES
 class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
   final FlutterTts flutterTts = FlutterTts();
   late stt.SpeechToText _speech;
@@ -28,6 +29,7 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
   String? _savedPhoneNumber;
   bool _isOnMainPage = true; // Track if we are on MainPage
 
+  // FEATURES OF THE APP AND ITS DESIGN
   final List<Option> options = [
     Option('READ', 'to read text using the camera', 'assets/read.png'),
     Option('OBJECT DETECTION', 'to detect an object', 'assets/obj.png'),
@@ -35,12 +37,10 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
     Option('WEATHER', 'to get weather details', 'assets/weather.png'),
     Option('BATTERY', 'to check battery percentage', 'assets/batt.png'),
     Option('TIME AND DATE', 'to check the current time and date', 'assets/tnd.png'),
-    Option('EMERGENCY CALL', 'to call someone immediately', 'assets/emergency-call.png'),
-    Option('EXIT', 'to close the application', 'assets/exit.png'),
-    Option('SWIPE LEFT', 'to read all the options', 'assets/back.png'),
-    Option('SWIPE RIGHT', 'to activate the voice command', 'assets/back.png'),
+    Option('INSTRUCTION', 'to learn the basic use of Visio-Guide', 'assets/tutorial.png'),
   ];
 
+  // TTS SETTINGS
   Future<void> _speak(String text) async {
     _isSpeaking = true;
     await flutterTts.setLanguage("en-US");
@@ -58,7 +58,7 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
     }).join('. ');
 
     String swipeLeftText = "Swipe Left to read all options.";
-    String swipeRightText = "Swipe Right to activate voice command.";
+    String swipeRightText = "Swipe Right to activate voice command, and say the feature you want to use.";
 
     await _speak("Here are the options: $optionsText. $swipeLeftText. $swipeRightText.");
   }
@@ -96,29 +96,32 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
     setState(() => _isListening = false);
   }
 
+  /*
   Future<void> _loadSavedPhoneNumber() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       _savedPhoneNumber = prefs.getString('savedPhoneNumber');
     });
   }
+  */
 
+  // NAVIGATION OF APPS AFTER VOICE COMMAND
   void _handleCommand(String command) async {
     command = command.toLowerCase();
     if (command.contains('weather')) {
       _navigateToPage(WeatherPage());
     } else if (command.contains('battery')) {
       _navigateToPage(BatteryStatus());
-    } else if (command.contains('emergency call')) {
-      _navigateToPage(EmergencyCallPage());
     } else if (command.contains('read')) {
       _navigateToPage(ReadPage());
-    } else if (command.contains('object detection')) {
+    } else if (command.contains('object') || command.contains('detection')) {
       _navigateToPage(ObjectDetectionPage());
     } else if (command.contains('calculator')) {
       _navigateToPage(CalculatorPage());
     } else if (command.contains('time') || command.contains('date')) {
       _navigateToPage(TimeAndDatePage());
+    } else if (command.contains('instruction')) {
+      _navigateToPage(InstructionPage()); // Navigate to InstructionPage
     } else if (command.contains('exit')) {
       await _speak("The application is about to close."); // Speak before closing
       Future.delayed(Duration(seconds: 4), () {
@@ -129,6 +132,7 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
     }
   }
 
+  // NAVIGATION SETTINGS
   void _navigateToPage(Widget page) {
     setState(() {
       _isOnMainPage = false; // We are navigating away from MainPage
@@ -142,11 +146,12 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
     });
   }
 
+  // LIFECYCLE METHODS
   @override
   void initState() {
     super.initState();
     _speakAllOptions();
-    _loadSavedPhoneNumber();
+    /*_loadSavedPhoneNumber();*/
     WidgetsBinding.instance.addObserver(this);
   }
 
@@ -195,65 +200,57 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
         },
         child: Stack(
           children: <Widget>[
-            Container(
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/wpg.png"),
-                  fit: BoxFit.cover,
+            // Container for background image
+            Positioned.fill(
+              child: Container(
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage("assets/wpg.png"),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),
-            ListView.builder(
-              itemCount: options.length,
-              itemBuilder: (context, index) {
-                return Card(
-                  margin: const EdgeInsets.all(10),
-                  child: ListTile(
-                    leading: options[index].title == 'SWIPE RIGHT'
-                        ? Transform(
-                      alignment: Alignment.center,
-                      transform: Matrix4.rotationY(3.14159),
-                      child: Image.asset(
-                        options[index].iconPath,
-                        width: 40,
-                        height: 40,
+            // The ListView that holds the options
+            Positioned.fill(
+              child: ListView.builder(
+                itemCount: options.length,
+                itemBuilder: (context, index) {
+                  return Card(
+                    margin: const EdgeInsets.all(10),
+                    child: ListTile(
+                      leading: Image.asset(options[index].iconPath, width: 40, height: 40),
+                      title: Text(
+                        options[index].title,
+                        style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
-                    )
-                        : Image.asset(
-                      options[index].iconPath,
-                      width: 40,
-                      height: 40,
+                      subtitle: Text(options[index].description),
+                      onTap: () async {
+                        if (options[index].title == 'INSTRUCTION') {
+                          _navigateToPage(InstructionPage()); // Navigate to InstructionPage
+                        } else if (options[index].title == 'READ') {
+                          _navigateToPage(ReadPage());
+                        } else if (options[index].title == 'OBJECT DETECTION') {
+                          _navigateToPage(ObjectDetectionPage());
+                        } else if (options[index].title == 'CALCULATOR') {
+                          _navigateToPage(CalculatorPage());
+                        } else if (options[index].title == 'WEATHER') {
+                          _navigateToPage(WeatherPage());
+                        } else if (options[index].title == 'BATTERY') {
+                          _navigateToPage(BatteryStatus());
+                        } else if (options[index].title == 'TIME AND DATE') {
+                          _navigateToPage(TimeAndDatePage());
+                        } else if (options[index].title == 'EXIT') {
+                          await _speak("The application is about to close.");
+                          Future.delayed(Duration(seconds: 2), () {
+                            SystemChannels.platform.invokeMethod('SystemNavigator.pop'); // Close the app
+                          });
+                        }
+                      },
                     ),
-                    title: Text(
-                      options[index].title,
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    subtitle: Text(options[index].description),
-                    onTap: () async {
-                      if (options[index].title == 'READ') {
-                        _navigateToPage(ReadPage());
-                      } else if (options[index].title == 'OBJECT DETECTION') {
-                        _navigateToPage(ObjectDetectionPage());
-                      } else if (options[index].title == 'EMERGENCY CALL') {
-                        _navigateToPage(EmergencyCallPage());
-                      } else if (options[index].title == 'CALCULATOR') {
-                        _navigateToPage(CalculatorPage());
-                      } else if (options[index].title == 'WEATHER') {
-                        _navigateToPage(WeatherPage());
-                      } else if (options[index].title == 'BATTERY') {
-                        _navigateToPage(BatteryStatus());
-                      } else if (options[index].title == 'TIME AND DATE') {
-                        _navigateToPage(TimeAndDatePage());
-                      } else if (options[index].title == 'EXIT') {
-                        await _speak("The application is about to close.");
-                        Future.delayed(Duration(seconds: 2), () {
-                          SystemChannels.platform.invokeMethod('SystemNavigator.pop'); // Close the app
-                        });
-                      }
-                    },
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             ),
           ],
         ),

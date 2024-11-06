@@ -19,7 +19,7 @@ class TermOfService extends StatelessWidget {
             children: [
               const Text(
                 "Terms of Service for Visio-Guide\n"
-                    "Last Updated: [Date]\n\n"
+                    "Last Updated: [06/11/24]\n\n"
                     "Welcome to Visio-Guide, an application designed to assist visually impaired individuals by providing helpful tools such as text reading, object detection, and more. By downloading, installing, or using the Visio-Guide app, you agree to comply with and be bound by the following Terms of Service. Please read these terms carefully.\n\n"
                     "1. Acceptance of Terms\n"
                     "By accessing or using the Visio-Guide app, you agree to these Terms of Service. If you do not agree with any part of these terms, you must uninstall the app and cease any further use.\n\n"
@@ -45,7 +45,7 @@ class TermOfService extends StatelessWidget {
                     "9. Governing Law\n"
                     "These Terms of Service are governed by and construed in accordance with the laws of [Country], without regard to its conflict of law principles. Any disputes arising from these terms or your use of the app will be resolved in the courts of [Jurisdiction].\n\n"
                     "10. Contact Information\n"
-                    "If you have any questions or concerns about these Terms of Service, please contact us at [Support Email].",
+                    "If you have any questions or concerns about these Terms of Service, please contact us at [CustomerSuport@gmail.com].",
                 style: TextStyle(fontSize: 16),
               ),
               const SizedBox(height: 32),

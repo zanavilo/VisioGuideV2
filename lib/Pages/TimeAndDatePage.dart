@@ -68,6 +68,10 @@ class _TimeAndDatePageState extends State<TimeAndDatePage> {
       child: Scaffold(
         body: Container(
           decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/wpg.png'), // Replace with your image asset
+              fit: BoxFit.cover,
+            ),
             gradient: LinearGradient(
               colors: [Colors.blue, Colors.lightBlue], // Updated gradient to blue and light blue
               begin: Alignment.topCenter,

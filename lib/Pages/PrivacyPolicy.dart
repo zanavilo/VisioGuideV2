@@ -19,7 +19,7 @@ class PrivacyPolicy extends StatelessWidget {
             children: [
               const Text(
                 "Privacy Policy for Visio-Guide\n"
-                    "Last Updated: [Date]\n\n"
+                    "Last Updated: [06/11/24]\n\n"
                     "This Privacy Policy describes how Visio-Guide (\"we,\" \"our,\" or \"us\") collects, uses, and shares personal information when you use our application designed to assist visually impaired individuals.\n\n"
                     "By using Visio-Guide, you consent to the data practices described in this policy. If you do not agree with the terms of this policy, please do not use our app.\n\n"
                     "1. Information We Collect\n"
@@ -53,7 +53,7 @@ class PrivacyPolicy extends StatelessWidget {
                     "7. Changes to This Privacy Policy\n"
                     "   We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new policy in the app and updating the \"Last Updated\" date at the top of this policy. Your continued use of the app after changes indicates your acceptance of the new terms.\n\n"
                     "8. Contact Us\n"
-                    "   If you have any questions or concerns about this Privacy Policy, please contact us at [Support Email].",
+                    "   If you have any questions or concerns about this Privacy Policy, please contact us at [Customersupport@gmail.com].",
                 style: TextStyle(fontSize: 16),
               ),
               const SizedBox(height: 32),
