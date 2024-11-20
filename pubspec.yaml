@@ -67,6 +67,15 @@ flutter_native_splash:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.14.1
+
+flutter_icons:
+  android: true
+  image_path: "assets/eye.png"
+  background_color: "#000000"
+  theme_color: "#000000"
+  adaptive_icon_background: "#000000"
+  adaptive_icon_foreground: "assets/eye.png"
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -113,6 +122,8 @@ flutter:
     - assets/emergency-call.png
     - assets/blind.png
     - assets/tutorial.png
+    - assets/visioguide_eye.jpg
+    - assets/bg.png
 
   #   - images/a_dot_ham.jpeg
 

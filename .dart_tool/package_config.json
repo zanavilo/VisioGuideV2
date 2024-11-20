@@ -80,6 +80,18 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "checked_yaml",
+      "rootUri": "file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/checked_yaml-2.0.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
+      "name": "cli_util",
+      "rootUri": "file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/cli_util-0.4.2",
+      "packageUri": "lib/",
+      "languageVersion": "3.4"
+    },
+    {
       "name": "clock",
       "rootUri": "file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/clock-1.1.1",
       "packageUri": "lib/",
@@ -194,10 +206,10 @@
       "languageVersion": "3.3"
     },
     {
-      "name": "flutter_lints",
-      "rootUri": "file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_lints-4.0.0",
+      "name": "flutter_launcher_icons",
+      "rootUri": "file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_launcher_icons-0.14.1",
       "packageUri": "lib/",
-      "languageVersion": "3.1"
+      "languageVersion": "3.0"
     },
     {
       "name": "flutter_native_splash",
@@ -462,12 +474,6 @@
       "rootUri": "file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/leak_tracker_testing-3.0.1",
       "packageUri": "lib/",
       "languageVersion": "3.2"
-    },
-    {
-      "name": "lints",
-      "rootUri": "file:///C:/Users/Zan%20Avilo/AppData/Local/Pub/Cache/hosted/pub.dev/lints-4.0.0",
-      "packageUri": "lib/",
-      "languageVersion": "3.1"
     },
     {
       "name": "matcher",
@@ -848,7 +854,7 @@
       "languageVersion": "3.5"
     }
   ],
-  "generated": "2024-11-06T04:54:31.662492Z",
+  "generated": "2024-11-20T17:32:29.598955Z",
   "generator": "pub",
   "generatorVersion": "3.5.3",
   "flutterRoot": "file:///C:/flutter/flutter_windows_3.24.3-stable/flutter",
