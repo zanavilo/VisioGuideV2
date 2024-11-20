@@ -45,7 +45,7 @@ class _WeatherPageState extends State<WeatherPage> {
         humidity = weatherData['current']['humidity'].toString();
         precipitation = weatherData['current']['precip_mm'].toString();
         windSpeed = weatherData['current']['wind_kph'].toString();
-        windDirection = weatherData['current']['wind_dir'];
+        windDirection = _getFullWindDirection(weatherData['current']['wind_dir']);
         cloudCover = weatherData['current']['cloud'].toString();
         visibility = weatherData['current']['vis_km'].toString();
         visibilityCondition = _getVisibilityCondition(double.parse(visibility)); // Determine visibility condition
@@ -69,10 +69,50 @@ class _WeatherPageState extends State<WeatherPage> {
     }
   }
 
+  String _getFullWindDirection(String windDir) {
+    switch (windDir) {
+      case 'N':
+        return 'North';
+      case 'NNE':
+        return 'North-North-East';
+      case 'NE':
+        return 'North-East';
+      case 'ENE':
+        return 'East-North-East';
+      case 'E':
+        return 'East';
+      case 'ESE':
+        return 'East-South-East';
+      case 'SE':
+        return 'South-East';
+      case 'SSE':
+        return 'South-South-East';
+      case 'S':
+        return 'South';
+      case 'SSW':
+        return 'South-South-West';
+      case 'SW':
+        return 'South-West';
+      case 'WSW':
+        return 'West-South-West';
+      case 'W':
+        return 'West';
+      case 'WNW':
+        return 'West-North-West';
+      case 'NW':
+        return 'North-West';
+      case 'NNW':
+        return 'North-North-West';
+      default:
+        return windDir; // If the direction is unknown, return as it is
+    }
+  }
+
   Future<void> _speakWeatherInfo() async {
     String weatherInfo = 'The current weather in $locationName is $temperature degrees Celsius with $weatherDescription. '
         'Humidity is at $humidity percent, precipitation is $precipitation millimeters, wind speed is $windSpeed kilometers per hour, '
-        'wind direction is $windDirection, cloud cover is $cloudCover percent, and visibility is $visibility kilometers, which is considered $visibilityCondition.';
+        'wind direction is $windDirection, cloud cover is $cloudCover percent, and visibility is $visibility kilometers, which is considered $visibilityCondition.'
+        'Swipe left to repeat the results, or swipe right to go back to the main page.';
 
     await flutterTts.setLanguage("en-US");
     await flutterTts.setPitch(1.0);
@@ -88,6 +128,10 @@ class _WeatherPageState extends State<WeatherPage> {
         if (details.velocity.pixelsPerSecond.dx > 0) {
           _speakReturnMessage(); // Speak return message before going back
           Navigator.pop(context); // Navigate back to MainPage
+        }
+        // Detect left swipe to repeat the weather info
+        else if (details.velocity.pixelsPerSecond.dx < 0) {
+          _speakWeatherInfo(); // Repeat the weather information
         }
       },
       child: Scaffold(

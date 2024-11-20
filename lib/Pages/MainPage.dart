@@ -226,7 +226,7 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
                       ),
                       subtitle: Text(options[index].description),
                       onTap: () async {
-                        if (options[index].title == 'INSTRUCTION') {
+                        /*if (options[index].title == 'INSTRUCTION') {
                           _navigateToPage(InstructionPage()); // Navigate to InstructionPage
                         } else if (options[index].title == 'READ') {
                           _navigateToPage(ReadPage());
@@ -245,7 +245,7 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
                           Future.delayed(Duration(seconds: 2), () {
                             SystemChannels.platform.invokeMethod('SystemNavigator.pop'); // Close the app
                           });
-                        }
+                        }*/
                       },
                     ),
                   );

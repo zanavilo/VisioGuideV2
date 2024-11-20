@@ -32,7 +32,7 @@ class _TimeAndDatePageState extends State<TimeAndDatePage> {
     await flutterTts.setLanguage("en-US");
     await flutterTts.setPitch(1.0);
     await flutterTts.setSpeechRate(0.5);
-    await flutterTts.speak('Current time is $time');
+    await flutterTts.speak('Current time is $time. Swipe left to repeat the current time, or swipe right to go back to the main page.');
   }
 
   Future<void> _speakReturnMessage() async {

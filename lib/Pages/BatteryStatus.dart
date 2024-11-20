@@ -27,10 +27,11 @@ class _BatteryStatusState extends State<BatteryStatus> {
     _speakBatteryLevel(); // Trigger TTS after battery level is fetched
   }
 
-  // Text-to-Speech function
+  // Text-to-Speech function to announce the battery level
   Future<void> _speakBatteryLevel() async {
     String text = _batteryLevel != null
         ? 'Battery Level is $_batteryLevel percent.'
+        'Swipe left to repeat the battery level, or swipe right to go back to the main page.'
         : 'Unable to retrieve battery level.';
 
     await flutterTts.setLanguage("en-US");
@@ -60,6 +61,11 @@ class _BatteryStatusState extends State<BatteryStatus> {
         if (details.velocity.pixelsPerSecond.dx > 0) {
           _speakReturnMessage(); // Speak return message before going back
           Navigator.pop(context); // Navigate back to MainPage
+        }
+
+        // Detect left swipe and repeat battery level
+        if (details.velocity.pixelsPerSecond.dx < 0) {
+          _speakBatteryLevel(); // Repeat battery level on left swipe
         }
       },
       child: Scaffold(
