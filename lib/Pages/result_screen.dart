@@ -59,13 +59,13 @@ class _ResultScreenState extends State<ResultScreen> {
     return GestureDetector(
       onHorizontalDragEnd: (details) async {
         // Detect right swipe
-        if (details.velocity.pixelsPerSecond.dx > 0) {
+        if (details.velocity.pixelsPerSecond.dx < 0) {
           await Vibration.vibrate(); // Vibrate on right swipe
           Navigator.pop(context); // Navigate back to the previous page
           await _speakRightSwipeMessage(); // Speak right swipe message after navigating back
         }
         // Detect left swipe
-        else if (details.velocity.pixelsPerSecond.dx < 0) {
+        else if (details.velocity.pixelsPerSecond.dx > 0) {
           await _navigateToMainPage(); // Navigate to MainPage first
           await Future.delayed(Duration(seconds: 1)); // Wait a bit before speaking
           await _speakLeftSwipeMessage(); // Speak left swipe message after navigating

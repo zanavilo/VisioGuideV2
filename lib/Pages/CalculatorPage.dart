@@ -117,16 +117,27 @@ class _CalculatorPageState extends State<CalculatorPage> {
   // Convert spoken math expression to result and speak it
   Future<void> _calculateAndSpeak(String spokenText) async {
     try {
+      // Delay to ensure the text-to-speech has time to complete
+      // await Future.delayed(Duration(seconds: 5));
+
+      // Evaluate the mathematical expression
       final result = _evaluateExpression(spokenText).round(); // Round the result to the nearest integer
+
+      // Update the UI to show the result
       setState(() {
         _resultText = 'Result: $result'; // Display the rounded result
       });
-      await _flutterTts.speak('The result is $result'); // Speak the result without delay
+
+      // Speak the result
+      await _flutterTts.speak('$spokenText equals $result'); // Speak the result
     } catch (e) {
       print(e); // Print error for debugging
-      setState(() {
-        _resultText = '....'; // Show a neutral error message
+      /*setState(() {
+        _resultText = 'I couldn\'t understand that. Please try again.'; // Show an error message
       });
+
+      // Speak the error message
+      await _flutterTts.speak('I couldn\'t understand that. Please try again.');*/
     }
   }
 

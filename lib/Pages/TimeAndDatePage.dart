@@ -154,17 +154,7 @@ class _TimeAndDatePageState extends State<TimeAndDatePage> {
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 20),
-                  ElevatedButton.icon(
-                    onPressed: _updateTime,
-                    icon: Icon(Icons.refresh, color: Colors.white), // Refresh icon color
-                    label: Text("Refresh Time", style: TextStyle(color: Colors.white)), // Button text color
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue, // Button background color
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
-                      ),
-                    ),
-                  ),
+
                 ],
               ),
             ),
