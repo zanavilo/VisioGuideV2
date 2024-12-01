@@ -10,7 +10,7 @@ Description: Central navigation hub with voice and touch controls.
 Includes:
 Swipe gestures for navigating features.
 Text-to-Speech (TTS) for descriptions of options.
-![image](https://github.com/user-attachments/assets/285b0ee0-e2ca-4897-989e-1b07cd969108)
+![image_2024-12-01_211249729](https://github.com/user-attachments/assets/9102008e-6971-4503-adf1-2ff617db0425)
 
 Time and Date
 
