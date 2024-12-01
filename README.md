@@ -21,32 +21,36 @@ Description: Speaks the current time and date and has swipe left feature to repe
 Calculator
 
 Description: A voice-activated calculator for simple arithmetic operations.
-![image](https://github.com/user-attachments/assets/1a95cfe9-a43f-4073-ac5f-4b8882c59af0)
-![image](https://github.com/user-attachments/assets/e2167f61-0a57-4f0d-96f1-25cd8e66ed9e)
+
+![image_2024-12-01_211637675](https://github.com/user-attachments/assets/4c58ef5a-d273-46bf-9044-91e91cb08ec6)
+![image_2024-12-01_211657346](https://github.com/user-attachments/assets/a899d618-2b1a-4154-93d0-a6a46e34d836)
 
 Weather
 
 Description: Provides real-time weather updates of current location.
-![image](https://github.com/user-attachments/assets/cb9a07c1-69b0-4736-b803-511bca6f77b3)
-
+![image_2024-12-01_211718441](https://github.com/user-attachments/assets/c745b325-5b21-4a5e-a025-f1c5ed7ea94c)
 
 Object Detection
 
 Description: Identifies objects and announces their names using Google Cloud Vision.
-![image](https://github.com/user-attachments/assets/12e9ab0f-b497-4fcb-b450-b7191f04f14b)
+![image_2024-12-01_211741893](https://github.com/user-attachments/assets/fe3e75f2-de71-4f70-bd40-b2c182809451)
 
 📜 Research Documentation
 
 Project Leader: Nunez Moce Loise
+
 Research, vision, and management details for Visio-Guide.
 
 Backend: Oliva Zildfred Andrew & Nunez Moce Loise
+
 Includes information about backend integrations like Google Cloud Vision and APIs.
 
 Frontend: Oliva Zildfred Andrew & Carl Justin Guerrero & Nunez Moce Loise
+
 Covers Flutter UI/UX design decisions and components.
 
 Documentation: Quiro Mercado & Nunez Moce Loise
+
 Overall project documentation, user manuals, and reports.
 
 📄 Research Acknowledgment
