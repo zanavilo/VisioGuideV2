@@ -16,7 +16,7 @@ Text-to-Speech (TTS) for descriptions of options.
 Time and Date
 
 Description: Speaks the current time and date and has swipe left feature to repeat.
-![image](https://github.com/user-attachments/assets/d2878020-84df-4f74-96a1-c6e7f61fe659)
+![image_2024-12-01_211542349 (1)](https://github.com/user-attachments/assets/00cc0ba0-ff2c-4fb1-8711-2aae49f78af5)
 
 Calculator
 
