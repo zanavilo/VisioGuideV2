@@ -16,6 +16,7 @@ Text-to-Speech (TTS) for descriptions of options.
 Time and Date
 
 Description: Speaks the current time and date and has swipe left feature to repeat.
+
 ![image_2024-12-01_211542349 (1)](https://github.com/user-attachments/assets/00cc0ba0-ff2c-4fb1-8711-2aae49f78af5)
 
 Calculator
@@ -23,16 +24,19 @@ Calculator
 Description: A voice-activated calculator for simple arithmetic operations.
 
 ![image_2024-12-01_211637675](https://github.com/user-attachments/assets/4c58ef5a-d273-46bf-9044-91e91cb08ec6)
+
 ![image_2024-12-01_211657346](https://github.com/user-attachments/assets/a899d618-2b1a-4154-93d0-a6a46e34d836)
 
 Weather
 
 Description: Provides real-time weather updates of current location.
+
 ![image_2024-12-01_211718441](https://github.com/user-attachments/assets/c745b325-5b21-4a5e-a025-f1c5ed7ea94c)
 
 Object Detection
 
 Description: Identifies objects and announces their names using Google Cloud Vision.
+
 ![image_2024-12-01_211741893](https://github.com/user-attachments/assets/fe3e75f2-de71-4f70-bd40-b2c182809451)
 
 📜 Research Documentation
